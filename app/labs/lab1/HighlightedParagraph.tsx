@@ -47,7 +47,7 @@ export default function HighlightedParagraphLab() {
         borderRadius="0px"
       />
       <HighlightedParagraph
-        text="I have a metal plate in my shoulder."
+        text="I have 14 tattoos covering scars from surgeries (all since I started my MSCS)."
         backgroundColor="#690420"
         borderColor="pink"
         borderWidth="3px"
