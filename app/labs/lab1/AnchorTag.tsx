@@ -14,7 +14,7 @@ export default function AnchorTag() {
       <br />
       <a href="https://disney.com/" id="wd-your-link">Disney</a>
       <br />
-      <a href="https://github.com/rileypk8/" target="_blank" rel="noreferrer">
+      <a href="https://github.com/rileypk8/" target="_blank" rel="noreferrer" id="wd-your-github">
       Other github</a>
       <br />
       <a
