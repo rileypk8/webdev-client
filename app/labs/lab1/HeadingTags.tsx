@@ -16,8 +16,8 @@ export default function HeadingTags() {
       starting a new line.
       <div id="wd-your-heading">
       <h4>Riley</h4>
-      Hi, I'm a complicated disaster. All I want to do is avoid the curse of the gifted kid.
-      I should have a Ph.D. by now, and I'm not going to give up. I just need to learn how
+      Hi, I&apos;m a complicated disaster. All I want to do is avoid the curse of the gifted kid.
+      I should have a Ph.D. by now, and I&apos;m not going to give up. I just need to learn how
       to balance work/life/school with a <span id="wd-your-span">bit</span> more grace than
       a giraffeinatutu.
       </div>
