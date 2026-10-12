@@ -339,3 +339,7 @@ p#wd-ai-id-selector {
   flex-shrink: 0;
   width: 110px;
 }
+
+.wd-icon-large {
+  font-size: 2em;
+}

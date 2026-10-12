@@ -14,6 +14,7 @@ import Float from "./Float";
 import GridLayout from "./GridLayout";
 import Flex from "./Flex";
 import MediaQueriesDemo from "./MediaQueriesDemo";
+import Icons from "./Icons";
 
 export default function Lab2() {
   return (
@@ -121,6 +122,7 @@ export default function Lab2() {
       <GridLayout />
       <Flex />
       <MediaQueriesDemo />
+      <Icons />
     </div>
   );
 }
