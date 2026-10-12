@@ -4,11 +4,23 @@ import Lesson from "./Lesson";
 export default function Modules() {
   return (
     <div>
-      <button>Collapse All</button> <button>View Progress</button>{" "}
-      <select defaultValue="publish-all">
-        <option value="publish-all">Publish All</option>
-      </select>{" "}
-      <button>+ Module</button>
+      <div className="flex gap-2 mb-3">
+        <button className="border rounded px-3 py-1 text-sm">
+          Collapse All
+        </button>
+        <button className="border rounded px-3 py-1 text-sm">
+          View Progress
+        </button>
+        <select
+          defaultValue="publish-all"
+          className="border rounded px-2 py-1 text-sm"
+        >
+          <option value="publish-all">Publish All</option>
+        </select>
+        <button className="bg-red-700 text-white rounded px-3 py-1 text-sm ml-auto">
+          + Module
+        </button>
+      </div>
       <ul id="wd-modules">
         <Module title="Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda">
           <Lesson title="LEARNING OBJECTIVES">

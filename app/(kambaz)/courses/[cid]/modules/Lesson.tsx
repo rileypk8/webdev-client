@@ -8,9 +8,11 @@ export default function Lesson({
   children?: ReactNode;
 }) {
   return (
-    <li className="wd-lesson">
-      <span className="wd-title">{title}</span>
-      <ul className="wd-content">{children}</ul>
+    <li className="wd-lesson border-b p-2">
+      <span className="wd-title font-semibold text-sm text-gray-600">
+        {title}
+      </span>
+      <ul className="wd-content pl-4 text-sm">{children}</ul>
     </li>
   );
 }
