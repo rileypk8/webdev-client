@@ -16,6 +16,7 @@ import Flex from "./Flex";
 import MediaQueriesDemo from "./MediaQueriesDemo";
 import Icons from "./Icons";
 import TailwindSpacing from "./TailwindSpacing";
+import TailwindTypography from "./TailwindTypography";
 
 export default function Lab2() {
   return (
@@ -125,6 +126,7 @@ export default function Lab2() {
       <MediaQueriesDemo />
       <Icons />
       <TailwindSpacing />
+      <TailwindTypography />
     </div>
   );
 }
