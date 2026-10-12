@@ -17,6 +17,18 @@ export default function Positions() {
         </span>
         after, original space is preserved
       </div>
+      <h3>Absolute positioning</h3>
+      <div className="wd-pos-relative-container">
+        <div className="wd-pos-absolute-10-10 wd-border-fat wd-border-red wd-border-solid wd-bg-color-yellow">
+          10, 10
+        </div>
+        <div className="wd-pos-absolute-50-50 wd-border-fat wd-border-blue wd-border-solid wd-bg-color-yellow">
+          50, 50
+        </div>
+        <div className="wd-pos-absolute-120-20 wd-border-fat wd-border-yellow wd-border-solid wd-bg-color-blue wd-fg-color-white">
+          120, 20
+        </div>
+      </div>
     </div>
   );
 }

@@ -247,3 +247,24 @@ p#wd-ai-id-selector {
   bottom: -20px;
   right: -40px;
 }
+
+.wd-pos-relative-container {
+  position: relative;
+  height: 200px;
+  border: 1px solid black;
+}
+.wd-pos-absolute-10-10 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.wd-pos-absolute-50-50 {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+.wd-pos-absolute-120-20 {
+  position: absolute;
+  top: 120px;
+  left: 20px;
+}
