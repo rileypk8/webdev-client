@@ -236,3 +236,14 @@ p#wd-ai-id-selector {
   width: 150px;
   height: 100px;
 }
+
+.wd-pos-relative-nudge-up-right {
+  position: relative;
+  top: -20px;
+  right: -20px;
+}
+.wd-pos-relative-nudge-down-right {
+  position: relative;
+  bottom: -20px;
+  right: -40px;
+}
