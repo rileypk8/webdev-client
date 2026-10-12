@@ -1,0 +1,50 @@
+.wd-mq-demo {
+  background-color: green;
+  color: white;
+  padding: 20px;
+}
+
+.wd-mq-rule-default,
+.wd-mq-rule-750,
+.wd-mq-rule-1000,
+.wd-mq-rule-1250 {
+  padding: 4px 0;
+}
+
+@media (max-width: 749px) {
+  .wd-mq-rule-default {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 999px) {
+  .wd-mq-demo {
+    background-color: #c7c70f;
+    color: black;
+  }
+  .wd-mq-rule-750 {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1249px) {
+  .wd-mq-demo {
+    background-color: #7070ff;
+  }
+  .wd-mq-rule-1000 {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 1250px) {
+  .wd-mq-demo {
+    background-color: #ff7070;
+  }
+  .wd-mq-rule-1250 {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
