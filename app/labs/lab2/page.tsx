@@ -17,6 +17,7 @@ import MediaQueriesDemo from "./MediaQueriesDemo";
 import Icons from "./Icons";
 import TailwindSpacing from "./TailwindSpacing";
 import TailwindTypography from "./TailwindTypography";
+import TailwindBackgroundColors from "./TailwindBackgroundColors";
 
 export default function Lab2() {
   return (
@@ -127,6 +128,7 @@ export default function Lab2() {
       <Icons />
       <TailwindSpacing />
       <TailwindTypography />
+      <TailwindBackgroundColors />
     </div>
   );
 }
