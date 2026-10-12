@@ -11,20 +11,12 @@ export default async function CoursesLayout({
   const { cid } = await params;
   return (
     <div id="wd-courses">
-      <h2>Courses {cid}</h2>
-      <hr />
-      <table>
-        <tbody>
-          <tr>
-            <td valign="top" width="200">
-              <CourseNavigation cid={cid} />
-            </td>
-            <td valign="top" width="100%">
-              {children}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h2 className="text-xl font-bold">Courses {cid}</h2>
+      <hr className="my-2" />
+      <div className="flex gap-4">
+        <CourseNavigation cid={cid} />
+        <div className="flex-1">{children}</div>
+      </div>
     </div>
   );
 }

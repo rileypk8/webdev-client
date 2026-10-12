@@ -1,40 +1,32 @@
 import Link from "next/link";
 
+const links = [
+  { href: "home", label: "Home", id: "wd-course-home-link" },
+  { href: "modules", label: "Modules", id: "wd-course-modules-link" },
+  { href: "piazza", label: "Piazza", id: "wd-course-piazza-link" },
+  { href: "zoom", label: "Zoom", id: "wd-course-zoom-link" },
+  { href: "assignments", label: "Assignments", id: "wd-course-assignments-link" },
+  { href: "quizzes", label: "Quizzes", id: "wd-course-quizzes-link" },
+  { href: "grades", label: "Grades", id: "wd-course-grades-link" },
+  { href: "people/table", label: "People", id: "wd-course-people-link" },
+];
+
 export default function CourseNavigation({ cid }: { cid: string }) {
   return (
-    <div id="wd-courses-navigation">
-      <Link href={`/courses/${cid}/home`} id="wd-course-home-link">
-        Home
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/modules`} id="wd-course-modules-link">
-        Modules
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/piazza`} id="wd-course-piazza-link">
-        Piazza
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/zoom`} id="wd-course-zoom-link">
-        Zoom
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/assignments`} id="wd-course-assignments-link">
-        Assignments
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/quizzes`} id="wd-course-quizzes-link">
-        Quizzes
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/grades`} id="wd-course-grades-link">
-        Grades
-      </Link>{" "}
-      <br />
-      <Link href={`/courses/${cid}/people/table`} id="wd-course-people-link">
-        People
-      </Link>{" "}
-      <br />
+    <div
+      id="wd-courses-navigation"
+      className="flex flex-col w-40 border-r border-gray-200 pr-2"
+    >
+      {links.map((link) => (
+        <Link
+          key={link.id}
+          href={`/courses/${cid}/${link.href}`}
+          id={link.id}
+          className="py-2 px-2 text-sm text-gray-600 border-b hover:text-red-700 hover:border-red-700"
+        >
+          {link.label}
+        </Link>
+      ))}
     </div>
   );
 }
