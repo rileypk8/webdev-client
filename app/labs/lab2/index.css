@@ -321,3 +321,21 @@ p#wd-ai-id-selector {
   width: 60%;
   box-sizing: border-box;
 }
+
+.wd-flex-row-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+.wd-flex-row-container > div {
+  height: 100px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.wd-flex-grow {
+  flex-grow: 1;
+}
+.wd-width-110px {
+  flex-shrink: 0;
+  width: 110px;
+}
