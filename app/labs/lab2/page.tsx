@@ -18,6 +18,12 @@ import Icons from "./Icons";
 import TailwindSpacing from "./TailwindSpacing";
 import TailwindTypography from "./TailwindTypography";
 import TailwindBackgroundColors from "./TailwindBackgroundColors";
+import TailwindResponsiveOneBreakpoint from "./TailwindResponsiveOneBreakpoint";
+import TailwindResponsiveShowHide from "./TailwindResponsiveShowHide";
+import TailwindResponsiveStack from "./TailwindResponsiveStack";
+import TailwindResponsiveGridColumns from "./TailwindResponsiveGridColumns";
+import TailwindResponsiveSpacingText from "./TailwindResponsiveSpacingText";
+import TailwindResponsiveCard from "./TailwindResponsiveCard";
 
 export default function Lab2() {
   return (
@@ -129,6 +135,13 @@ export default function Lab2() {
       <TailwindSpacing />
       <TailwindTypography />
       <TailwindBackgroundColors />
+      <h2>Tailwind responsive design</h2>
+      <TailwindResponsiveOneBreakpoint />
+      <TailwindResponsiveShowHide />
+      <TailwindResponsiveStack />
+      <TailwindResponsiveGridColumns />
+      <TailwindResponsiveSpacingText />
+      <TailwindResponsiveCard />
     </div>
   );
 }
