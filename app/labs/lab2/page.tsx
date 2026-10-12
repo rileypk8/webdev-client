@@ -83,6 +83,14 @@ export default function Lab2() {
           </div>
         </div>
       </div>
+      <p id="wd-specificity" className="wd-specificity">
+        Test one two three.
+      </p>
+      <p id="wd-ai-specificity" className="wd-ai-specificity">
+        This paragraph is targeted by a tag rule, a class rule, and an id
+        rule, all setting background-color. The id rule wins due to higher
+        specificity.
+      </p>
     </div>
   );
 }

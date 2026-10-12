@@ -64,3 +64,20 @@ p#wd-ai-id-selector {
   background-color: pink;
   color: black;
 }
+
+.wd-specificity {
+  color: purple;
+}
+#wd-specificity {
+  color: green;
+}
+
+/* Specificity conflict: tag vs class vs id rule on background-color.
+   The id rule wins because it has the highest specificity. */
+
+.wd-ai-specificity {
+  background-color: orange;
+}
+#wd-ai-specificity {
+  background-color: maroon;
+}
