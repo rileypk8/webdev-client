@@ -24,6 +24,7 @@ import TailwindResponsiveStack from "./TailwindResponsiveStack";
 import TailwindResponsiveGridColumns from "./TailwindResponsiveGridColumns";
 import TailwindResponsiveSpacingText from "./TailwindResponsiveSpacingText";
 import TailwindResponsiveCard from "./TailwindResponsiveCard";
+import TailwindFilters from "./TailwindFilters";
 
 export default function Lab2() {
   return (
@@ -142,6 +143,7 @@ export default function Lab2() {
       <TailwindResponsiveGridColumns />
       <TailwindResponsiveSpacingText />
       <TailwindResponsiveCard />
+      <TailwindFilters />
     </div>
   );
 }
