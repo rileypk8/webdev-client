@@ -15,6 +15,7 @@ import GridLayout from "./GridLayout";
 import Flex from "./Flex";
 import MediaQueriesDemo from "./MediaQueriesDemo";
 import Icons from "./Icons";
+import TailwindSpacing from "./TailwindSpacing";
 
 export default function Lab2() {
   return (
@@ -123,6 +124,7 @@ export default function Lab2() {
       <Flex />
       <MediaQueriesDemo />
       <Icons />
+      <TailwindSpacing />
     </div>
   );
 }
