@@ -31,3 +31,18 @@ p#wd-ai-id-selector {
   background-color: teal;
   color: white;
 }
+
+.wd-class-selector {
+  background-color: yellow;
+  color: blue;
+}
+
+.wd-ai-class-selector {
+  background-color: brown;
+  color: white;
+}
+
+.wd-your-class {
+  background-color: purple;
+  color: cyan;
+}

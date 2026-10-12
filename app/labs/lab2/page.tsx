@@ -30,12 +30,30 @@ export default function Lab2() {
           Here&apos;s another paragraph using a different ID and a different
           look and feel
         </p>
-        <p id="wd-id-selector-3">
-          Yep, another paragraph.
-        </p>
+        <p id="wd-id-selector-3">Yep, another paragraph.</p>
         <p id="wd-ai-id-selector">
           This paragraph is styled with its own ID selector rule.
         </p>
+      </div>
+      <div id="wd-css-class-selectors">
+        <h3>Class selectors</h3>
+        <p className="wd-class-selector">
+          Instead of using IDs to refer to elements, you can use an
+          element&apos;s CLASS attribute
+        </p>
+        <h4 className="wd-class-selector">
+          This heading has same style as paragraph above
+        </h4>
+        <p className="wd-ai-class-selector">
+          This paragraph uses a new class selector with its own look and
+          feel.
+        </p>
+        <h4 className="wd-ai-class-selector">
+          This heading shares the same class as the paragraph above
+        </h4>
+        <h4 className="wd-your-class">
+          Another class.
+        </h4>
       </div>
     </div>
   );
