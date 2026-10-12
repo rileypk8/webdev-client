@@ -278,3 +278,17 @@ p#wd-ai-id-selector {
 .wd-zindex-bring-to-front {
   z-index: 10;
 }
+
+.wd-float-left {
+  float: left;
+  max-width: 35%;
+  margin: 0 1rem 0.5rem 0;
+}
+.wd-float-right {
+  float: right;
+  max-width: 35%;
+  margin: 0 0 0.5rem 1rem;
+}
+.wd-float-done {
+  clear: both;
+}
