@@ -12,14 +12,14 @@ export default function AssignmentItem({
   details: string;
 }) {
   return (
-    <li className="wd-assignment-list-item">
+    <li className="wd-assignment-list-item border-b p-3">
       <Link
         href={`/courses/${cid}/assignments/${aid}`}
-        className="wd-assignment-link"
+        className="wd-assignment-link font-semibold text-blue-700 hover:underline"
       >
         {title}
       </Link>
-      <p>{details}</p>
+      <p className="text-sm text-gray-500">{details}</p>
     </li>
   );
 }

@@ -8,14 +8,33 @@ export default async function Assignments({
   const { cid } = await params;
   return (
     <div id="wd-assignments">
-      <input
-        id="wd-search-assignment"
-        placeholder="Search for Assignments"
-      />
-      <button id="wd-add-assignment-group">+ Group</button>
-      <button id="wd-add-assignment">+ Assignment</button>
-      <h3 id="wd-assignments-title">
-        ASSIGNMENTS 40% of Total <button type="button">+</button>
+      <div className="flex gap-2 mb-3">
+        <input
+          id="wd-search-assignment"
+          placeholder="Search for Assignments"
+          className="border rounded px-2 py-1 flex-1"
+        />
+        <button
+          id="wd-add-assignment-group"
+          className="border rounded px-3 py-1 text-sm"
+        >
+          + Group
+        </button>
+        <button
+          id="wd-add-assignment"
+          className="bg-red-700 text-white rounded px-3 py-1 text-sm"
+        >
+          + Assignment
+        </button>
+      </div>
+      <h3
+        id="wd-assignments-title"
+        className="bg-gray-200 font-bold p-2 flex justify-between items-center"
+      >
+        ASSIGNMENTS 40% of Total{" "}
+        <button type="button" className="border rounded px-2">
+          +
+        </button>
       </h3>
       <ul id="wd-assignment-list">
         <AssignmentItem
