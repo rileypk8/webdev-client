@@ -1,4 +1,5 @@
 import "./index.css";
+import ForegroundColors from "./ForegroundColors";
 
 export default function Lab2() {
   return (
@@ -91,6 +92,7 @@ export default function Lab2() {
         rule, all setting background-color. The id rule wins due to higher
         specificity.
       </p>
+      <ForegroundColors />
     </div>
   );
 }
