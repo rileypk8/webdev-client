@@ -29,6 +29,10 @@ export default function Positions() {
           120, 20
         </div>
       </div>
+      <h3>Fixed positioning</h3>
+      <div className="wd-pos-fixed wd-border-fat wd-border-red wd-border-solid wd-bg-color-yellow">
+        fixed to viewport
+      </div>
     </div>
   );
 }

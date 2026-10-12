@@ -268,3 +268,9 @@ p#wd-ai-id-selector {
   top: 120px;
   left: 20px;
 }
+
+.wd-pos-fixed {
+  position: fixed;
+  right: 0px;
+  bottom: 50%;
+}
