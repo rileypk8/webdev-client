@@ -292,3 +292,32 @@ p#wd-ai-id-selector {
 .wd-float-done {
   clear: both;
 }
+
+.wd-grid-row {
+  clear: both;
+}
+.wd-grid-col-half-page {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+}
+.wd-grid-col-third-page {
+  float: left;
+  width: 33%;
+  box-sizing: border-box;
+}
+.wd-grid-col-two-thirds-page {
+  float: left;
+  width: 67%;
+  box-sizing: border-box;
+}
+.wd-grid-col-sidebar {
+  float: left;
+  width: 20%;
+  box-sizing: border-box;
+}
+.wd-grid-col-sidebar-main {
+  float: left;
+  width: 60%;
+  box-sizing: border-box;
+}
