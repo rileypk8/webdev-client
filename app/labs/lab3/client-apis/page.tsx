@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import PathnameDemo from "./PathnameDemo";
 import SearchParamsDemo from "./SearchParamsDemo";
+import WindowDemo from "./WindowDemo";
 
 export default function ClientApis() {
   return (
@@ -10,6 +11,7 @@ export default function ClientApis() {
       <Suspense fallback={<p>Loading query string...</p>}>
         <SearchParamsDemo />
       </Suspense>
+      <WindowDemo />
     </div>
   );
 }
