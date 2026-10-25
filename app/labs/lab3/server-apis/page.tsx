@@ -4,6 +4,7 @@ import EnvDemo from "./EnvDemo";
 import RequestHeadersDemo from "./RequestHeadersDemo";
 import WeatherDemo from "./WeatherDemo";
 import VisitCounterDemo from "./VisitCounterDemo";
+import ChildProcessDemo from "./ChildProcessDemo";
 
 export default function ServerApis() {
   return (
@@ -15,6 +16,7 @@ export default function ServerApis() {
       <RequestHeadersDemo />
       <WeatherDemo />
       <VisitCounterDemo />
+      <ChildProcessDemo />
     </div>
   );
 }
