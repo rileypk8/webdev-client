@@ -34,6 +34,7 @@ import ServerComponentDemo from "./ServerComponentDemo";
 import Add from "./Add";
 import Square from "./Square";
 import Highlight from "./Highlight";
+import PathParameters from "./PathParameters";
 
 export default function Lab3() {
   console.log("Hello World!");
@@ -90,6 +91,7 @@ export default function Lab3() {
         As far back as I can remember, I always wanted to be a dancer.
       </Highlight>
       <Highlight>Children can be any JSX</Highlight>
+      <PathParameters />
     </div>
   );
 }
