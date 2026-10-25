@@ -3,6 +3,7 @@ import ObjectTypes from "./ObjectTypes";
 import Interfaces from "./Interfaces";
 import UnionTypes from "./UnionTypes";
 import Enums from "./Enums";
+import FunctionTypes from "./FunctionTypes";
 
 export default function Lab3Types() {
   return (
@@ -13,6 +14,7 @@ export default function Lab3Types() {
       <Interfaces />
       <UnionTypes />
       <Enums />
+      <FunctionTypes />
     </div>
   );
 }
