@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import PathnameDemo from "./PathnameDemo";
 import SearchParamsDemo from "./SearchParamsDemo";
 import WindowDemo from "./WindowDemo";
+import GeolocationDemo from "./GeolocationDemo";
 
 export default function ClientApis() {
   return (
@@ -12,6 +13,7 @@ export default function ClientApis() {
         <SearchParamsDemo />
       </Suspense>
       <WindowDemo />
+      <GeolocationDemo />
     </div>
   );
 }
