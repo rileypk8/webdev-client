@@ -3,6 +3,7 @@ import PathnameDemo from "./PathnameDemo";
 import SearchParamsDemo from "./SearchParamsDemo";
 import WindowDemo from "./WindowDemo";
 import GeolocationDemo from "./GeolocationDemo";
+import MapEmbed from "./MapEmbed";
 
 export default function ClientApis() {
   return (
@@ -14,6 +15,9 @@ export default function ClientApis() {
       </Suspense>
       <WindowDemo />
       <GeolocationDemo />
+      <Suspense fallback={<p>Loading map...</p>}>
+        <MapEmbed />
+      </Suspense>
     </div>
   );
 }
