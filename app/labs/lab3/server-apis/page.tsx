@@ -1,6 +1,7 @@
 import ServerTimeDemo from "./ServerTimeDemo";
 import OsDemo from "./OsDemo";
 import EnvDemo from "./EnvDemo";
+import RequestHeadersDemo from "./RequestHeadersDemo";
 
 export default function ServerApis() {
   return (
@@ -9,6 +10,7 @@ export default function ServerApis() {
       <ServerTimeDemo />
       <OsDemo />
       <EnvDemo />
+      <RequestHeadersDemo />
     </div>
   );
 }
