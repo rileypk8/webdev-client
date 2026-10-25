@@ -6,6 +6,7 @@ import Enums from "./Enums";
 import FunctionTypes from "./FunctionTypes";
 import TypedProps from "./TypedProps";
 import Narrowing from "./Narrowing";
+import AnyVsUnknown from "./AnyVsUnknown";
 
 export default function Lab3Types() {
   return (
@@ -19,6 +20,7 @@ export default function Lab3Types() {
       <FunctionTypes />
       <TypedProps />
       <Narrowing />
+      <AnyVsUnknown />
     </div>
   );
 }
