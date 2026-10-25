@@ -5,6 +5,7 @@ import UnionTypes from "./UnionTypes";
 import Enums from "./Enums";
 import FunctionTypes from "./FunctionTypes";
 import TypedProps from "./TypedProps";
+import Narrowing from "./Narrowing";
 
 export default function Lab3Types() {
   return (
@@ -17,6 +18,7 @@ export default function Lab3Types() {
       <Enums />
       <FunctionTypes />
       <TypedProps />
+      <Narrowing />
     </div>
   );
 }
