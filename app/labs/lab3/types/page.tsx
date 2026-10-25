@@ -2,6 +2,7 @@ import TypeAnnotations from "./TypeAnnotations";
 import ObjectTypes from "./ObjectTypes";
 import Interfaces from "./Interfaces";
 import UnionTypes from "./UnionTypes";
+import Enums from "./Enums";
 
 export default function Lab3Types() {
   return (
@@ -11,6 +12,7 @@ export default function Lab3Types() {
       <ObjectTypes />
       <Interfaces />
       <UnionTypes />
+      <Enums />
     </div>
   );
 }
