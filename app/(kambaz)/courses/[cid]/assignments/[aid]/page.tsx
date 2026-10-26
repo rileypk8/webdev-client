@@ -1,4 +1,5 @@
 import Link from "next/link";
+import * as db from "../../../../database";
 
 export default async function AssignmentEditor({
   params,
@@ -6,6 +7,10 @@ export default async function AssignmentEditor({
   params: Promise<{ cid: string; aid: string }>;
 }) {
   const { cid } = await params;
+  const { aid } = await params;
+
+  const assignment = db.assignments.find((a) => a._id === aid);
+
   return (
     <div id="wd-assignments-editor" className="flex flex-col gap-4 max-w-2xl">
       <div className="flex flex-col gap-1">
@@ -14,14 +19,17 @@ export default async function AssignmentEditor({
         </label>
         <input
           id="wd-name"
-          defaultValue="A1 - ENV + HTML"
+          defaultValue={assignment?.title ?? ""}
           className="border rounded px-2 py-1"
         />
+        <p id="wd-assignment-id" className="text-sm text-gray-500">
+          Assignment id: {aid}
+        </p>
       </div>
       <textarea
         id="wd-description"
         className="border rounded px-2 py-1 h-32"
-        defaultValue="The assignment is available online Submit a link to the landing page of"
+        defaultValue={assignment?.description ?? ""}
       />
       <div className="border rounded p-4 flex flex-col gap-4">
         <div className="grid grid-cols-[150px_1fr] items-center gap-2">
@@ -30,7 +38,7 @@ export default async function AssignmentEditor({
           </label>
           <input
             id="wd-points"
-            defaultValue={100}
+            defaultValue={assignment?.points ?? 100}
             className="border rounded px-2 py-1"
           />
 
@@ -123,7 +131,7 @@ export default async function AssignmentEditor({
             <input
               type="date"
               id="wd-due-date"
-              defaultValue="2024-05-13"
+              defaultValue={assignment?.due ?? ""}
               className="border rounded px-2 py-1"
             />
             <div className="flex gap-2">
@@ -134,7 +142,7 @@ export default async function AssignmentEditor({
                 <input
                   type="date"
                   id="wd-available-from"
-                  defaultValue="2024-05-06"
+                  defaultValue={assignment?.available ?? ""}
                   className="border rounded px-2 py-1"
                 />
               </div>
