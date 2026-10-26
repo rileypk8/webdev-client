@@ -34,5 +34,29 @@
     "description": "This course covers the principles of spacecraft design, including structures, propulsion, thermal control, and power systems. Students apply systems engineering methods to mission design, orbital mechanics, and payload integration for current and future space missions.",
     "image": "/images/mongodb.jpg",
     "term": "Spring 2023"
+  },
+  {
+    "_id": "RS105",
+    "name": "Underwater Basket Weaving",
+    "number": "RS4588",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "D330",
+    "credits": 4,
+    "description": "This course covers the classic art of underwater basket weaving.",
+    "image": "/images/mongodb.jpg",
+    "term": "Spring 2023"
+  },
+  {
+    "_id": "RS104",
+    "name": "Organic Chemistry",
+    "number": "RS4580",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "D123",
+    "credits": 4,
+    "description": "This course introduces the structure, properties, and reactions of organic compounds.",
+    "image": "/images/reactjs.jpg",
+    "term": "Spring 2023"
   }
 ]
