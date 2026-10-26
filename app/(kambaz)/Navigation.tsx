@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   FaRegCircleUser,
   FaRegFolder,
@@ -8,8 +11,21 @@ import {
   FaFlask,
 } from "react-icons/fa6";
 import { FaCogs } from "react-icons/fa";
+import { IoCalendarOutline } from "react-icons/io5";
+
+const LINKS = [
+  { label: "Dashboard", path: "/dashboard", icon: FaRegFolderOpen },
+  { label: "Courses", path: "/dashboard", icon: FaRegFolder },
+  { label: "Calendar", path: "/calendar", icon: FaRegCalendar },
+  { label: "Inbox", path: "/inbox", icon: FaInbox },
+  { label: "Labs", path: "/labs", icon: FaFlask },
+  { label: "History", path: "/history", icon: IoCalendarOutline },
+] as const;
 
 export default function KambazNavigation() {
+  const pathname = usePathname() ?? "";
+  const accountActive = pathname.includes("/account");
+
   return (
     <div
       id="wd-kambaz-navigation"
@@ -27,51 +43,33 @@ export default function KambazNavigation() {
       <Link
         href="/account"
         id="wd-account-link"
-        className="flex flex-col items-center text-xs hover:text-red-400"
+        className={`flex flex-col items-center text-xs hover:text-red-400 ${
+          accountActive ? "text-red-400" : ""
+        }`}
       >
         <FaRegCircleUser className="text-2xl" />
         Account
       </Link>
-      <Link
-        href="/dashboard"
-        id="wd-dashboard-link"
-        className="flex flex-col items-center text-xs hover:text-red-400"
-      >
-        <FaRegFolderOpen className="text-2xl" />
-        Dashboard
-      </Link>
-      <Link
-        href="/dashboard"
-        id="wd-course-link"
-        className="flex flex-col items-center text-xs hover:text-red-400"
-      >
-        <FaRegFolder className="text-2xl" />
-        Courses
-      </Link>
-      <Link
-        href="/calendar"
-        id="wd-calendar-link"
-        className="flex flex-col items-center text-xs hover:text-red-400"
-      >
-        <FaRegCalendar className="text-2xl" />
-        Calendar
-      </Link>
-      <Link
-        href="/inbox"
-        id="wd-inbox-link"
-        className="flex flex-col items-center text-xs hover:text-red-400"
-      >
-        <FaInbox className="text-2xl" />
-        Inbox
-      </Link>
-      <Link
-        href="/labs"
-        id="wd-labs-link"
-        className="flex flex-col items-center text-xs hover:text-red-400"
-      >
-        <FaFlask className="text-2xl" />
-        Labs
-      </Link>
+      {LINKS.map((link) => {
+        const active =
+          link.label === "Courses"
+            ? pathname.includes("/courses")
+            : pathname.includes(link.path);
+        const Icon = link.icon;
+        return (
+          <Link
+            key={link.label}
+            href={link.path}
+            id={`wd-${link.label.toLowerCase()}-link`}
+            className={`flex flex-col items-center text-xs hover:text-red-400 ${
+              active ? "text-red-400" : ""
+            }`}
+          >
+            <Icon className="text-2xl" />
+            {link.label}
+          </Link>
+        );
+      })}
     </div>
   );
 }
