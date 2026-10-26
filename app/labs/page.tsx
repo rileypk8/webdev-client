@@ -21,6 +21,17 @@ export default function Labs() {
           <Link href="/labs/lab5">Lab 5</Link>
         </li>
       </ul>
+      <p>
+        <a
+          id="wd-github"
+          href="https://github.com/rileypk8/webdev-client"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub Repository
+        </a>
+      </p>
+      <p>Cait Riley</p>
     </div>
   );
 }
