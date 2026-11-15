@@ -27,7 +27,9 @@ export default function CoursesLayout({
           title="Toggle course navigation"
         />
         <Breadcrumb course={course} />{" "}
-        <span className="text-sm font-normal">({course?._id})</span>
+        {process.env.NODE_ENV === "development" && (
+          <span className="text-sm font-normal">({course?._id})</span>
+        )}
       </h2>
       <hr className="my-2" />
       <div className="flex gap-4">
