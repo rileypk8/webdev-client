@@ -1,21 +1,34 @@
-import type { ReactNode } from "react";
+import Lesson from "./Lesson";
+import ModuleControlButtons from "./ModuleControlButtons";
+import { useModulesStore, type CourseModule } from "../../../store/modulesStore";
 
-export default function Module({
-  title,
-  controls,
-  children,
-}: {
-  title: ReactNode;
-  controls?: ReactNode;
-  children?: ReactNode;
-}) {
+export default function Module({ module }: { module: CourseModule }) {
+  const updateModule = useModulesStore((state) => state.updateModule);
   return (
     <li className="wd-module border rounded mb-3">
       <div className="wd-title bg-gray-200 font-bold p-3 flex items-center justify-between">
-        {title}
-        {controls}
+        {module.editing ? (
+          <input
+            className="w-1/2 rounded border border-neutral-300 bg-white px-2 py-1 text-base font-normal"
+            autoFocus
+            defaultValue={module.name}
+            onChange={(e) => updateModule({ ...module, name: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                updateModule({ ...module, editing: false });
+              }
+            }}
+          />
+        ) : (
+          module.name
+        )}
+        <ModuleControlButtons moduleId={module._id} />
       </div>
-      <ul className="wd-lessons">{children}</ul>
+      <ul className="wd-lessons">
+        {module.lessons?.map((lesson) => (
+          <Lesson key={lesson._id} title={lesson.name} />
+        ))}
+      </ul>
     </li>
   );
 }
