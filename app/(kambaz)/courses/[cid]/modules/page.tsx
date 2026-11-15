@@ -42,6 +42,9 @@ export default function Modules() {
       modules.map((m) => (m._id === moduleId ? { ...m, editing: true } : m)),
     );
   };
+  const updateModule = (module: CourseModule) => {
+    setModules(modules.map((m) => (m._id === module._id ? module : m)));
+  };
   return (
     <div>
       <ModulesControls
@@ -55,7 +58,25 @@ export default function Modules() {
           .map((module) => (
             <Module
               key={module._id}
-              title={module.name}
+              title={
+                module.editing ? (
+                  <input
+                    className="w-1/2 rounded border border-neutral-300 bg-white px-2 py-1 text-base font-normal"
+                    autoFocus
+                    defaultValue={module.name}
+                    onChange={(e) =>
+                      updateModule({ ...module, name: e.target.value })
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        updateModule({ ...module, editing: false });
+                      }
+                    }}
+                  />
+                ) : (
+                  module.name
+                )
+              }
               controls={
                 <ModuleControlButtons
                   moduleId={module._id}

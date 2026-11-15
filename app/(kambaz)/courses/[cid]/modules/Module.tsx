@@ -5,7 +5,7 @@ export default function Module({
   controls,
   children,
 }: {
-  title: string;
+  title: ReactNode;
   controls?: ReactNode;
   children?: ReactNode;
 }) {
