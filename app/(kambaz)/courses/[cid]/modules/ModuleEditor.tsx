@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function ModuleEditor({
   show,
   handleClose,
@@ -11,6 +13,15 @@ export default function ModuleEditor({
   setModuleName: (name: string) => void;
   addModule: () => void;
 }) {
+  useEffect(() => {
+    if (!show) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [show, handleClose]);
+
   if (!show) return null;
   return (
     <div
