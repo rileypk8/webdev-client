@@ -3,30 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAccountContext } from "../AccountContext";
+import { emptyUser, useAccountContext } from "../AccountContext";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
-  const { setCurrentUser } = useAccountContext();
+  const { setCurrentUser, createUser } = useAccountContext();
   const router = useRouter();
 
   const signup = () => {
     if (!username || !password || password !== verifyPassword) return;
-    setCurrentUser({
-      _id: crypto.randomUUID(),
-      username,
-      password,
-      firstName: "",
-      lastName: "",
-      email: "",
-      role: "STUDENT",
-      loginId: "",
-      section: "",
-      lastActivity: "",
-      totalActivity: "",
-    });
+    setCurrentUser(createUser({ ...emptyUser, username, password }));
     router.push("/account/profile");
   };
 
