@@ -18,6 +18,7 @@ export default function AssignmentEditor() {
   const { currentUser } = useAccountContext();
   const findAssignment = useAssignmentsStore((state) => state.findAssignment);
   const addAssignment = useAssignmentsStore((state) => state.addAssignment);
+  const updateAssignment = useAssignmentsStore((state) => state.updateAssignment);
   const [assignment, setAssignment] = useState<Assignment>(() =>
     isNew
       ? { ...emptyAssignment, course: courseId }
@@ -26,6 +27,7 @@ export default function AssignmentEditor() {
   const backToList = () => router.push(`/courses/${courseId}/assignments`);
   const save = () => {
     if (isNew) addAssignment(assignment);
+    else updateAssignment(assignment);
     backToList();
   };
 
