@@ -1,16 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import AssignmentItem from "./AssignmentItem";
+import DeleteAssignmentDialog from "./DeleteAssignmentDialog";
 import { isFaculty, useAccountContext } from "../../../account/AccountContext";
-import { useAssignmentsStore } from "../../../store/assignmentsStore";
+import {
+  useAssignmentsStore,
+  type Assignment,
+} from "../../../store/assignmentsStore";
 
 export default function Assignments() {
   const { cid } = useParams();
   const courseId = String(cid);
   const { currentUser } = useAccountContext();
   const allAssignments = useAssignmentsStore((state) => state.assignments);
+  const deleteAssignment = useAssignmentsStore(
+    (state) => state.deleteAssignment,
+  );
+  const [toDelete, setToDelete] = useState<Assignment | null>(null);
   const assignments = allAssignments.filter(
     (assignment) => assignment.course === courseId,
   );
@@ -56,9 +65,22 @@ export default function Assignments() {
             aid={assignment._id}
             title={assignment.title}
             details={`Multiple Modules | Not available until ${assignment.available} | Due ${assignment.due} | ${assignment.points} pts`}
+            onDelete={
+              isFaculty(currentUser) ? () => setToDelete(assignment) : undefined
+            }
           />
         ))}
       </ul>
+      {toDelete && (
+        <DeleteAssignmentDialog
+          title={toDelete.title}
+          onYes={() => {
+            deleteAssignment(toDelete._id);
+            setToDelete(null);
+          }}
+          onNo={() => setToDelete(null)}
+        />
+      )}
     </div>
   );
 }
