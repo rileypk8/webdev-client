@@ -65,19 +65,6 @@
     "totalActivity": "11:22:33"
   },
   {
-    "_id": "678",
-    "username": "nick_fury",
-    "password": "fury123",
-    "firstName": "Nick",
-    "lastName": "Fury",
-    "email": "nick@shield.gov",
-    "role": "FACULTY",
-    "loginId": "001234566F",
-    "section": "S101",
-    "lastActivity": "2020-11-15",
-    "totalActivity": "40:12:18"
-  },
-  {
     "_id": "789",
     "username": "bruce_banner",
     "password": "banner123",
