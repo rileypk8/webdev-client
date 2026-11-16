@@ -5,8 +5,8 @@
     "course": "RS101",
     "description": "Analyze the thermodynamics of a rocket combustion chamber and nozzle. Submit a short report covering chamber pressure, expansion ratio, and predicted specific impulse.",
     "points": 100,
-    "due": "2024-05-13",
-    "available": "2024-05-06"
+    "due": "2026-05-13",
+    "available": "2026-05-06"
   },
   {
     "_id": "A102",
@@ -14,8 +14,8 @@
     "course": "RS101",
     "description": "Compare solid, liquid, and hybrid rocket engine types. Discuss propellant choices, throttling, and typical mission applications.",
     "points": 100,
-    "due": "2024-05-20",
-    "available": "2024-05-13"
+    "due": "2026-05-20",
+    "available": "2026-05-13"
   },
   {
     "_id": "A103",
@@ -23,8 +23,8 @@
     "course": "RS101",
     "description": "Design a converging-diverging nozzle for a given chamber pressure and altitude. Include sketches, performance calculations, and a discussion of losses.",
     "points": 100,
-    "due": "2024-05-27",
-    "available": "2024-05-20"
+    "due": "2026-05-27",
+    "available": "2026-05-20"
   },
   {
     "_id": "A201",
@@ -32,8 +32,8 @@
     "course": "RS102",
     "description": "Calculate lift and drag for a given airfoil at several angles of attack. Plot the results and explain stall behavior.",
     "points": 100,
-    "due": "2024-05-13",
-    "available": "2024-05-06"
+    "due": "2026-05-13",
+    "available": "2026-05-06"
   },
   {
     "_id": "A202",
@@ -41,8 +41,8 @@
     "course": "RS102",
     "description": "Compare subsonic and supersonic flow over a wing. Identify shock waves, wave drag, and design implications.",
     "points": 100,
-    "due": "2024-05-20",
-    "available": "2024-05-13"
+    "due": "2026-05-20",
+    "available": "2026-05-13"
   },
   {
     "_id": "A203",
@@ -50,8 +50,8 @@
     "course": "RS102",
     "description": "Propose a thermal protection approach for a vehicle experiencing aerodynamic heating during re-entry. Justify material and geometry choices.",
     "points": 100,
-    "due": "2024-05-27",
-    "available": "2024-05-20"
+    "due": "2026-05-27",
+    "available": "2026-05-20"
   },
   {
     "_id": "A204",
@@ -59,8 +59,8 @@
     "course": "RS102",
     "description": "Evaluate the aerodynamic performance tradeoffs of a swept-wing design at transonic speeds.",
     "points": 100,
-    "due": "2024-06-03",
-    "available": "2024-05-27"
+    "due": "2026-06-03",
+    "available": "2026-05-27"
   },
   {
     "_id": "A301",
@@ -68,8 +68,8 @@
     "course": "RS103",
     "description": "Select structural materials for a small spacecraft bus. Discuss mass, stiffness, thermal expansion, and radiation effects.",
     "points": 100,
-    "due": "2024-05-13",
-    "available": "2024-05-06"
+    "due": "2026-05-13",
+    "available": "2026-05-06"
   },
   {
     "_id": "A302",
@@ -77,8 +77,8 @@
     "course": "RS103",
     "description": "Plan a Hohmann transfer between two circular orbits. Compute delta-v, transfer time, and a simple mission timeline.",
     "points": 100,
-    "due": "2024-05-20",
-    "available": "2024-05-13"
+    "due": "2026-05-20",
+    "available": "2026-05-13"
   },
   {
     "_id": "A303",
@@ -86,7 +86,7 @@
     "course": "RS103",
     "description": "Integrate power, communication, and thermal subsystems for a CubeSat. Identify interfaces, constraints, and a basic mass/power budget.",
     "points": 100,
-    "due": "2024-05-27",
-    "available": "2024-05-20"
+    "due": "2026-05-27",
+    "available": "2026-05-20"
   }
 ]
