@@ -5,6 +5,8 @@ import usersJson from "../database/users.json";
 
 export type User = (typeof usersJson)[number];
 
+export const isAdmin = (user: User | null) => user?.role === "ADMIN";
+
 // FACULTY and ADMIN can create, edit, and delete course content
 export const isFaculty = (user: User | null) =>
   user?.role === "FACULTY" || user?.role === "ADMIN";

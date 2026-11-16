@@ -1,11 +1,13 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import { useParams } from "next/navigation";
+import { ReactNode, useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { FaAlignJustify } from "react-icons/fa6";
 import CourseNavigation from "./Navigation";
 import Breadcrumb from "./Breadcrumb";
 import { useCoursesStore } from "../../store/coursesStore";
+import { useEnrollmentsStore } from "../../store/enrollmentsStore";
+import { isAdmin, useAccountContext } from "../../account/AccountContext";
 
 export default function CoursesLayout({
   children,
@@ -17,6 +19,22 @@ export default function CoursesLayout({
   const courses = useCoursesStore((state) => state.courses);
   const course = courses.find((c) => c._id === courseId);
   const [showCourseNav, setShowCourseNav] = useState(true);
+  const router = useRouter();
+  const { currentUser } = useAccountContext();
+  const enrollments = useEnrollmentsStore((state) => state.enrollments);
+  // admins can open any course; everyone else only the courses they are enrolled in
+  const canOpen =
+    isAdmin(currentUser) ||
+    enrollments.some(
+      (enrollment) =>
+        enrollment.user === currentUser?._id && enrollment.course === courseId,
+    );
+
+  useEffect(() => {
+    if (!canOpen) router.replace("/dashboard");
+  }, [canOpen, router]);
+
+  if (!canOpen) return null;
 
   return (
     <div id="wd-courses">
