@@ -5,9 +5,13 @@ import { useCoursesStore, type Course } from "../store/coursesStore";
 export default function CourseCard({
   course,
   onEdit,
+  enrolled,
+  onToggleEnrollment,
 }: {
   course: Course;
   onEdit: () => void;
+  enrolled?: boolean;
+  onToggleEnrollment?: () => void;
 }) {
   const deleteCourse = useCoursesStore((state) => state.deleteCourse);
   return (
@@ -36,6 +40,21 @@ export default function CourseCard({
           >
             Go
           </button>
+          {enrolled !== undefined && (
+            <button
+              type="button"
+              id={enrolled ? "wd-unenroll-course-click" : "wd-enroll-course-click"}
+              className={`mt-2 ms-2 text-white text-sm px-3 py-1 rounded ${
+                enrolled ? "bg-red-600" : "bg-green-600"
+              }`}
+              onClick={(event) => {
+                event.preventDefault();
+                onToggleEnrollment?.();
+              }}
+            >
+              {enrolled ? "Unenroll" : "Enroll"}
+            </button>
+          )}
           <button
             type="button"
             id="wd-edit-course-click"

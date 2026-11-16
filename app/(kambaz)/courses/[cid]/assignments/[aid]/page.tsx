@@ -78,10 +78,10 @@ export default function AssignmentEditor() {
             defaultValue="ASSIGNMENTS"
             className="border rounded px-2 py-1"
           >
-            <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-            <option value="QUIZZES">QUIZZES</option>
-            <option value="EXAMS">EXAMS</option>
-            <option value="PROJECT">PROJECT</option>
+            <option value="ASSIGNMENTS">Assignments</option>
+            <option value="QUIZZES">Quizzes</option>
+            <option value="EXAMS">Exams</option>
+            <option value="PROJECT">Project</option>
           </select>
 
           <label
