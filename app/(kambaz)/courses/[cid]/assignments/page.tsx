@@ -1,14 +1,15 @@
-import AssignmentItem from "./AssignmentItem";
-import * as db from "../../../database";
+"use client";
 
-export default async function Assignments({
-  params,
-}: {
-  params: Promise<{ cid: string }>;
-}) {
-  const { cid } = await params;
-  const assignments = db.assignments.filter(
-    (assignment) => assignment.course === cid,
+import { useParams } from "next/navigation";
+import AssignmentItem from "./AssignmentItem";
+import { useAssignmentsStore } from "../../../store/assignmentsStore";
+
+export default function Assignments() {
+  const { cid } = useParams();
+  const courseId = String(cid);
+  const allAssignments = useAssignmentsStore((state) => state.assignments);
+  const assignments = allAssignments.filter(
+    (assignment) => assignment.course === courseId,
   );
 
   return (
@@ -45,7 +46,7 @@ export default async function Assignments({
         {assignments.map((assignment) => (
           <AssignmentItem
             key={assignment._id}
-            cid={cid}
+            cid={courseId}
             aid={assignment._id}
             title={assignment.title}
             details={`Multiple Modules | Not available until ${assignment.available} | Due ${assignment.due} | ${assignment.points} pts`}
