@@ -5,6 +5,10 @@ import usersJson from "../database/users.json";
 
 export type User = (typeof usersJson)[number];
 
+// FACULTY and ADMIN can create, edit, and delete course content
+export const isFaculty = (user: User | null) =>
+  user?.role === "FACULTY" || user?.role === "ADMIN";
+
 type AccountContextValue = {
   currentUser: User | null;
   setCurrentUser: (user: User | null) => void;

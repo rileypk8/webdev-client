@@ -1,12 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import AssignmentItem from "./AssignmentItem";
+import { isFaculty, useAccountContext } from "../../../account/AccountContext";
 import { useAssignmentsStore } from "../../../store/assignmentsStore";
 
 export default function Assignments() {
   const { cid } = useParams();
   const courseId = String(cid);
+  const { currentUser } = useAccountContext();
   const allAssignments = useAssignmentsStore((state) => state.assignments);
   const assignments = allAssignments.filter(
     (assignment) => assignment.course === courseId,
@@ -26,12 +29,15 @@ export default function Assignments() {
         >
           + Group
         </button>
-        <button
-          id="wd-add-assignment"
-          className="bg-red-700 text-white rounded px-3 py-1 text-sm"
-        >
-          + Assignment
-        </button>
+        {isFaculty(currentUser) && (
+          <Link
+            id="wd-add-assignment"
+            href={`/courses/${courseId}/assignments/new`}
+            className="bg-red-700 text-white rounded px-3 py-1 text-sm"
+          >
+            + Assignment
+          </Link>
+        )}
       </div>
       <h3
         id="wd-assignments-title"
