@@ -25,7 +25,8 @@ export default function Profile() {
     setCurrentUser(user);
   };
 
-  const signout = () => {
+  const signout = async () => {
+    await client.signout();
     setCurrentUser(null);
     router.push("/account/signin");
   };
