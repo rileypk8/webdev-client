@@ -54,3 +54,8 @@ export const createNewTodo = async (): Promise<Todo[]> => {
   const response = await axios.get(`${TODOS_API}/create`);
   return response.data;
 };
+
+export const postNewTodo = async (todo: Omit<Todo, "id">): Promise<Todo> => {
+  const response = await axios.post(TODOS_API, todo);
+  return response.data;
+};

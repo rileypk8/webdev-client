@@ -12,6 +12,13 @@ export default function WorkingWithRemoteArraysAsync() {
   const createNewTodo = async () => {
     setTodos(await client.createNewTodo());
   };
+  const postNewTodo = async () => {
+    const newTodo = await client.postNewTodo({
+      title: "New Posted Todo",
+      completed: false,
+    });
+    setTodos([...todos, newTodo]);
+  };
   useEffect(() => {
     const fetchTodos = async () => {
       setTodos(await client.fetchTodos());
@@ -27,6 +34,11 @@ export default function WorkingWithRemoteArraysAsync() {
           onClick={createNewTodo}
           id="wd-async-create-todo"
           className="ml-2 inline cursor-pointer text-green-600"
+        />
+        <FaPlusCircle
+          onClick={postNewTodo}
+          id="wd-post-todo"
+          className="ml-2 inline cursor-pointer text-blue-600"
         />
       </h4>
       <ul className="max-w-md">
