@@ -50,6 +50,17 @@ export default function Dashboard() {
   const [course, setCourse] = useState<Course>(emptyCourse);
   const [error, setError] = useState<string | null>(null);
 
+  const onUpdateCourse = async () => {
+    try {
+      await client.updateCourse(course);
+      updateCourse(course);
+      setError(null);
+    } catch (e) {
+      console.error("Unable to update course", e);
+      setError("Unable to update the course.");
+    }
+  };
+
   const onDeleteCourse = async (courseId: string) => {
     try {
       await client.deleteCourse(courseId);
@@ -110,7 +121,7 @@ export default function Dashboard() {
           type="button"
           className="rounded bg-yellow-400 px-3 py-1.5 text-sm font-medium"
           id="wd-update-course-click"
-          onClick={() => updateCourse(course)}
+          onClick={onUpdateCourse}
         >
           Update
         </button>
