@@ -18,7 +18,7 @@ export default function Labs() {
           <Link href="/labs/lab4">Lab 4: Managing State</Link>
         </li>
         <li>
-          <Link href="/labs/lab5">Lab 5</Link>
+          <Link href="/labs/lab5">Lab 5: HTTP Web APIs</Link>
         </li>
       </ul>
       <p>
