@@ -71,3 +71,11 @@ export const updateTodo = async (todo: Todo) => {
   const response = await axios.put(`${TODOS_API}/${todo.id}`, payload);
   return response.data;
 };
+
+export const fetchHello = async (): Promise<{ message?: string }> => {
+  const response = await fetch("/api/lab5/hello");
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return response.json();
+};
