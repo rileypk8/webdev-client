@@ -6,10 +6,11 @@ const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 
 type TodoForm = {
   id: string;
+  title: string;
 };
 
 export default function WorkingWithRemoteArrays() {
-  const [todo, setTodo] = useState<TodoForm>({ id: "1" });
+  const [todo, setTodo] = useState<TodoForm>({ id: "1", title: "Task 1" });
   const API = `${HTTP_SERVER}/lab5/todos`;
   const input = "mb-2 block w-full max-w-sm rounded border border-neutral-300 px-3 py-1.5";
   const link = "inline-block rounded bg-blue-600 px-3 py-1.5 text-sm text-white";
@@ -41,6 +42,20 @@ export default function WorkingWithRemoteArrays() {
       <h4>Removing from an Array</h4>
       <a id="wd-remove-todo" className={link} href={`${API}/${todo.id}/delete`}>
         Remove Todo with ID = {todo.id}
+      </a>
+      <h4>Updating an Item in an Array</h4>
+      <input
+        id="wd-todo-title"
+        className={input}
+        value={todo.title}
+        onChange={(e) => setTodo({ ...todo, title: e.target.value })}
+      />
+      <a
+        id="wd-update-todo-title"
+        className={link}
+        href={`${API}/${todo.id}/title/${encodeURIComponent(todo.title)}`}
+      >
+        Update Todo
       </a>
       <hr />
     </div>
