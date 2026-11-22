@@ -49,3 +49,8 @@ export const removeTodo = async (todo: Todo): Promise<Todo[]> => {
   const response = await axios.get(`${TODOS_API}/${todo.id}/delete`);
   return response.data;
 };
+
+export const createNewTodo = async (): Promise<Todo[]> => {
+  const response = await axios.get(`${TODOS_API}/create`);
+  return response.data;
+};
