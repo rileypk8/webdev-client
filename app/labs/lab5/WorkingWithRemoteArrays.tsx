@@ -30,6 +30,10 @@ export default function WorkingWithRemoteArrays() {
       <a id="wd-retrieve-todo-by-id" className={link} href={`${API}/${todo.id}`}>
         Get Todo by ID
       </a>
+      <h4>Filtering Array Items</h4>
+      <a id="wd-retrieve-completed-todos" className={link} href={`${API}?completed=true`}>
+        Get Completed Todos
+      </a>
       <hr />
     </div>
   );
