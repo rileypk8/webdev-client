@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CourseCard from "./CourseCard";
 import {
   emptyCourse,
@@ -9,9 +9,11 @@ import {
 } from "../store/coursesStore";
 import { useEnrollmentsStore } from "../store/enrollmentsStore";
 import { useAccountContext } from "../account/AccountContext";
+import * as client from "../courses/client";
 
 export default function Dashboard() {
   const courses = useCoursesStore((state) => state.courses);
+  const setCourses = useCoursesStore((state) => state.setCourses);
   const addCourse = useCoursesStore((state) => state.addCourse);
   const updateCourse = useCoursesStore((state) => state.updateCourse);
   const { currentUser } = useAccountContext();
@@ -28,10 +30,22 @@ export default function Dashboard() {
       (enrollment) =>
         enrollment.user === currentUser?._id && enrollment.course === courseId,
     );
-  const visibleCourses =
-    currentUser && !showAllCourses
-      ? courses.filter((c) => isEnrolled(c._id))
-      : courses;
+  // the server is the source of truth: my courses when signed in,
+  // every course when signed out or when Enrollments shows them all
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setCourses(
+          currentUser && !showAllCourses
+            ? await client.findMyCourses()
+            : await client.fetchAllCourses(),
+        );
+      } catch (e) {
+        console.error("Unable to load courses", e);
+      }
+    };
+    load();
+  }, [currentUser, showAllCourses, setCourses]);
   const [course, setCourse] = useState<Course>(emptyCourse);
 
   return (
@@ -99,14 +113,14 @@ export default function Dashboard() {
       />
       <hr className="my-2" />
       <h2 id="wd-dashboard-published" className="text-lg font-semibold">
-        Published Courses ({visibleCourses.length})
+        Published Courses ({courses.length})
       </h2>
       <hr className="my-2" />
       <div
         id="wd-dashboard-courses"
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
       >
-        {visibleCourses.map((c) => (
+        {courses.map((c) => (
           <CourseCard
             key={c._id}
             course={c}
