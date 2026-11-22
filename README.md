@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Environment variables (Lab 5)
+
+Lab 5 talks to the Express server in the sibling `webdev-server` project. The server URL is read from `NEXT_PUBLIC_HTTP_SERVER`. `.env*` files are gitignored, so create `.env.development` at the project root before running `npm run dev`:
+
+```
+NEXT_PUBLIC_HTTP_SERVER=http://localhost:4000
+```
+
+Restart `next dev` whenever this file changes. On Vercel, set the same variable to the deployed server's origin (no trailing slash).
