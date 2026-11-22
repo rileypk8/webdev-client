@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaPlusCircle, FaTrash } from "react-icons/fa";
+import { FaPencilAlt, FaPlusCircle, FaTrash } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
 import * as client from "./client";
 
@@ -23,6 +23,15 @@ export default function WorkingWithRemoteArraysAsync() {
   const deleteTodo = async (todo: client.Todo) => {
     await client.deleteTodo(todo);
     setTodos(todos.filter((t) => t.id !== todo.id));
+  };
+  const editTodo = (todo: client.Todo) => {
+    setTodos(
+      todos.map((t) => (t.id === todo.id ? { ...todo, editing: true } : t))
+    );
+  };
+  const updateTodo = async (todo: client.Todo) => {
+    await client.updateTodo(todo);
+    setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
   };
   useEffect(() => {
     const fetchTodos = async () => {
@@ -49,10 +58,39 @@ export default function WorkingWithRemoteArraysAsync() {
       <ul className="max-w-md">
         {todos.map((todo) => (
           <li key={todo.id} className="flex items-center gap-2 py-1">
-            <input type="checkbox" defaultChecked={todo.completed} />
-            <span className={todo.completed ? "line-through" : ""}>
-              {todo.title}
-            </span>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={(e) =>
+                updateTodo({ ...todo, completed: e.target.checked })
+              }
+            />
+            {todo.editing ? (
+              <input
+                className="rounded border border-neutral-300 px-2 py-0.5"
+                defaultValue={todo.title}
+                onChange={(e) =>
+                  setTodos(
+                    todos.map((t) =>
+                      t.id === todo.id ? { ...t, title: e.target.value } : t
+                    )
+                  )
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    updateTodo({ ...todo, editing: false });
+                  }
+                }}
+              />
+            ) : (
+              <span className={todo.completed ? "line-through" : ""}>
+                {todo.title}
+              </span>
+            )}
+            <FaPencilAlt
+              onClick={() => editTodo(todo)}
+              className="cursor-pointer text-blue-600"
+            />
             <FaTrash
               onClick={() => removeTodo(todo)}
               id="wd-async-remove-todo"

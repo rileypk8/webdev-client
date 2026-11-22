@@ -64,3 +64,10 @@ export const deleteTodo = async (todo: Todo) => {
   const response = await axios.delete(`${TODOS_API}/${todo.id}`);
   return response.data;
 };
+
+export const updateTodo = async (todo: Todo) => {
+  const payload = { ...todo };
+  delete payload.editing;
+  const response = await axios.put(`${TODOS_API}/${todo.id}`, payload);
+  return response.data;
+};
