@@ -15,3 +15,8 @@ export const signup = async (user: { username: string; password: string }) => {
   const response = await axios.post(`${USERS_API}/signup`, user);
   return response.data;
 };
+
+export const updateUser = async (user: { _id: string }) => {
+  const response = await axios.put(`${USERS_API}/${user._id}`, user);
+  return response.data;
+};
