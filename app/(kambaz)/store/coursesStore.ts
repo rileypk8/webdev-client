@@ -29,12 +29,10 @@ type CoursesStore = {
 export const useCoursesStore = create<CoursesStore>((set) => ({
   courses: coursesJson,
   setCourses: (courses) => set({ courses }),
+  // the server assigns the _id; append the course it returned
   addCourse: (course) =>
     set((state) => ({
-      courses: [
-        ...state.courses,
-        { ...emptyCourse, ...course, _id: crypto.randomUUID() },
-      ],
+      courses: [...state.courses, course],
     })),
   deleteCourse: (courseId) =>
     set((state) => ({

@@ -47,6 +47,24 @@ export default function Dashboard() {
     load();
   }, [currentUser, showAllCourses, setCourses]);
   const [course, setCourse] = useState<Course>(emptyCourse);
+  const [error, setError] = useState<string | null>(null);
+
+  const onAddCourse = async () => {
+    if (!currentUser) {
+      setError("Sign in to add a course.");
+      return;
+    }
+    try {
+      const newCourse = await client.createCourse(course);
+      addCourse(newCourse);
+      // the server enrolled the creator; mirror that until enrollments move to the server (5.4.8)
+      enrollIntoCourse(currentUser._id, newCourse._id);
+      setError(null);
+    } catch (e) {
+      console.error("Unable to add course", e);
+      setError("Unable to add the course.");
+    }
+  };
 
   return (
     <div id="wd-dashboard">
@@ -72,7 +90,7 @@ export default function Dashboard() {
           type="button"
           className="rounded bg-blue-600 px-3 py-1.5 text-sm font-medium text-white"
           id="wd-add-new-course-click"
-          onClick={() => addCourse(course)}
+          onClick={onAddCourse}
         >
           Add
         </button>
@@ -85,6 +103,14 @@ export default function Dashboard() {
           Update
         </button>
       </h5>
+      {error && (
+        <p
+          id="wd-dashboard-error"
+          className="mt-2 max-w-xl rounded bg-red-100 px-3 py-2 text-sm text-red-800"
+        >
+          {error}
+        </p>
+      )}
       <input
         className="mb-2 mt-2 block w-full max-w-xl rounded border border-neutral-300 px-3 py-1.5"
         value={course.name}
