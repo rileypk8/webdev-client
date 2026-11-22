@@ -22,8 +22,10 @@ export default function CoursesLayout({
   const router = useRouter();
   const { currentUser } = useAccountContext();
   const enrollments = useEnrollmentsStore((state) => state.enrollments);
-  // admins can open any course; everyone else only the courses they are enrolled in
+  // signed out: browse freely (like the Dashboard). Signed in: admins can open
+  // any course, everyone else only the courses they are enrolled in
   const canOpen =
+    !currentUser ||
     isAdmin(currentUser) ||
     enrollments.some(
       (enrollment) =>
