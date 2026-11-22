@@ -1,5 +1,6 @@
 import Environment from "./Environment";
 import PathParameters from "./PathParameters";
+import QueryParameters from "./QueryParameters";
 
 export default function Lab5() {
   return (
@@ -8,6 +9,7 @@ export default function Lab5() {
       <Environment />
       <hr />
       <PathParameters />
+      <QueryParameters />
     </div>
   );
 }
