@@ -34,6 +34,10 @@ export default function WorkingWithRemoteArrays() {
       <a id="wd-retrieve-completed-todos" className={link} href={`${API}?completed=true`}>
         Get Completed Todos
       </a>
+      <h4>Creating new Items in an Array</h4>
+      <a id="wd-create-todo" className={link} href={`${API}/create`}>
+        Create Todo
+      </a>
       <hr />
     </div>
   );
