@@ -1,19 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useCoursesStore, type Course } from "../store/coursesStore";
+import type { Course } from "../store/coursesStore";
 
 export default function CourseCard({
   course,
   onEdit,
+  onDelete,
   enrolled,
   onToggleEnrollment,
 }: {
   course: Course;
   onEdit: () => void;
+  onDelete: () => void;
   enrolled?: boolean;
   onToggleEnrollment?: () => void;
 }) {
-  const deleteCourse = useCoursesStore((state) => state.deleteCourse);
   return (
     <div className="wd-dashboard-course border rounded-lg shadow overflow-hidden bg-white">
       <Link
@@ -72,7 +73,7 @@ export default function CourseCard({
             className="mt-2 ms-2 bg-red-700 text-white text-sm px-3 py-1 rounded"
             onClick={(event) => {
               event.preventDefault();
-              deleteCourse(course._id);
+              onDelete();
             }}
           >
             Delete

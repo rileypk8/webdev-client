@@ -16,6 +16,7 @@ export default function Dashboard() {
   const setCourses = useCoursesStore((state) => state.setCourses);
   const addCourse = useCoursesStore((state) => state.addCourse);
   const updateCourse = useCoursesStore((state) => state.updateCourse);
+  const deleteCourse = useCoursesStore((state) => state.deleteCourse);
   const { currentUser } = useAccountContext();
   const enrollments = useEnrollmentsStore((state) => state.enrollments);
   const enrollIntoCourse = useEnrollmentsStore(
@@ -48,6 +49,17 @@ export default function Dashboard() {
   }, [currentUser, showAllCourses, setCourses]);
   const [course, setCourse] = useState<Course>(emptyCourse);
   const [error, setError] = useState<string | null>(null);
+
+  const onDeleteCourse = async (courseId: string) => {
+    try {
+      await client.deleteCourse(courseId);
+      deleteCourse(courseId);
+      setError(null);
+    } catch (e) {
+      console.error("Unable to delete course", e);
+      setError("Unable to delete the course.");
+    }
+  };
 
   const onAddCourse = async () => {
     if (!currentUser) {
@@ -151,6 +163,7 @@ export default function Dashboard() {
             key={c._id}
             course={c}
             onEdit={() => setCourse(c)}
+            onDelete={() => onDeleteCourse(c._id)}
             enrolled={currentUser ? isEnrolled(c._id) : undefined}
             onToggleEnrollment={() =>
               currentUser &&
