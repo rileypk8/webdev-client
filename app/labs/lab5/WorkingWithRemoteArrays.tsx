@@ -7,10 +7,17 @@ const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 type TodoForm = {
   id: string;
   title: string;
+  description: string;
+  completed: boolean;
 };
 
 export default function WorkingWithRemoteArrays() {
-  const [todo, setTodo] = useState<TodoForm>({ id: "1", title: "Task 1" });
+  const [todo, setTodo] = useState<TodoForm>({
+    id: "1",
+    title: "Play the music",
+    description: "It's time to meet the Muppets on the Muppet Show tonight",
+    completed: false,
+  });
   const API = `${HTTP_SERVER}/lab5/todos`;
   const input = "mb-2 block w-full max-w-sm rounded border border-neutral-300 px-3 py-1.5";
   const link = "inline-block rounded bg-blue-600 px-3 py-1.5 text-sm text-white";
@@ -56,6 +63,37 @@ export default function WorkingWithRemoteArrays() {
         href={`${API}/${todo.id}/title/${encodeURIComponent(todo.title)}`}
       >
         Update Todo
+      </a>
+      <br />
+      <label className="mt-2 mr-2 inline-flex items-center gap-1">
+        <input
+          id="wd-todo-completed"
+          type="checkbox"
+          checked={todo.completed}
+          onChange={(e) => setTodo({ ...todo, completed: e.target.checked })}
+        />
+        Completed
+      </label>
+      <a
+        id="wd-update-todo-completed"
+        className={link}
+        href={`${API}/${todo.id}/completed/${todo.completed}`}
+      >
+        Complete Todo ID = {todo.id}
+      </a>
+      <br />
+      <input
+        id="wd-todo-description"
+        className={`${input} mt-2`}
+        value={todo.description}
+        onChange={(e) => setTodo({ ...todo, description: e.target.value })}
+      />
+      <a
+        id="wd-update-todo-description"
+        className={link}
+        href={`${API}/${todo.id}/description/${encodeURIComponent(todo.description)}`}
+      >
+        Describe Todo ID = {todo.id}
       </a>
       <hr />
     </div>
