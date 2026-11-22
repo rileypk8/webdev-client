@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaPlusCircle, FaTrash } from "react-icons/fa";
+import { TiDelete } from "react-icons/ti";
 import * as client from "./client";
 
 export default function WorkingWithRemoteArraysAsync() {
@@ -18,6 +19,10 @@ export default function WorkingWithRemoteArraysAsync() {
       completed: false,
     });
     setTodos([...todos, newTodo]);
+  };
+  const deleteTodo = async (todo: client.Todo) => {
+    await client.deleteTodo(todo);
+    setTodos(todos.filter((t) => t.id !== todo.id));
   };
   useEffect(() => {
     const fetchTodos = async () => {
@@ -52,6 +57,11 @@ export default function WorkingWithRemoteArraysAsync() {
               onClick={() => removeTodo(todo)}
               id="wd-async-remove-todo"
               className="cursor-pointer text-red-600"
+            />
+            <TiDelete
+              onClick={() => deleteTodo(todo)}
+              id="wd-delete-todo"
+              className="cursor-pointer text-2xl text-red-600"
             />
           </li>
         ))}

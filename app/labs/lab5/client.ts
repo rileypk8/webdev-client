@@ -59,3 +59,8 @@ export const postNewTodo = async (todo: Omit<Todo, "id">): Promise<Todo> => {
   const response = await axios.post(TODOS_API, todo);
   return response.data;
 };
+
+export const deleteTodo = async (todo: Todo) => {
+  const response = await axios.delete(`${TODOS_API}/${todo.id}`);
+  return response.data;
+};
