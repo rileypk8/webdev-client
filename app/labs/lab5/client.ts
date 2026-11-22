@@ -29,3 +29,18 @@ export const updateTitle = async (title: string): Promise<Assignment> => {
   );
   return response.data;
 };
+
+export type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+  description?: string;
+  editing?: boolean;
+};
+
+const TODOS_API = `${HTTP_SERVER}/lab5/todos`;
+
+export const fetchTodos = async (): Promise<Todo[]> => {
+  const response = await axios.get(TODOS_API);
+  return response.data;
+};
