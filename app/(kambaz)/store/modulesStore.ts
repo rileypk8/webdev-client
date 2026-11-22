@@ -21,7 +21,7 @@ export type CourseModule = {
 type ModulesStore = {
   modules: CourseModule[];
   setModules: (modules: CourseModule[]) => void;
-  addModule: (module: { name: string; course: string }) => void;
+  addModule: (module: CourseModule) => void;
   deleteModule: (moduleId: string) => void;
   updateModule: (module: CourseModule) => void;
   editModule: (moduleId: string) => void;
@@ -31,18 +31,10 @@ export const useModulesStore = create<ModulesStore>((set) => ({
   // a client cache of the current course's modules, filled from the server
   modules: [],
   setModules: (modules) => set({ modules }),
+  // the server assigns the _id; append the module it returned
   addModule: (module) =>
     set((state) => ({
-      modules: [
-        ...state.modules,
-        {
-          _id: crypto.randomUUID(),
-          name: module.name,
-          description: "",
-          course: module.course,
-          lessons: [],
-        },
-      ],
+      modules: [...state.modules, module],
     })),
   deleteModule: (moduleId) =>
     set((state) => ({
