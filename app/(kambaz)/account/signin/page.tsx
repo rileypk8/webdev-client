@@ -3,30 +3,42 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import { useAccountContext } from "../AccountContext";
+import * as client from "../client";
 
 export default function Signin() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  const { setCurrentUser, users } = useAccountContext();
+  const [error, setError] = useState<string | null>(null);
+  const { setCurrentUser } = useAccountContext();
   const router = useRouter();
 
-  const signin = () => {
-    const user = users.find(
-      (u) =>
-        u.username === credentials.username &&
-        u.password === credentials.password,
-    );
-    if (!user) return;
-    setCurrentUser(user);
-    router.push("/dashboard");
+  const signin = async () => {
+    try {
+      const user = await client.signin(credentials);
+      if (!user) return;
+      setCurrentUser(user);
+      router.push("/dashboard");
+    } catch (e) {
+      setError(
+        axios.isAxiosError(e)
+          ? (e.response?.data?.message ?? e.message)
+          : "Unable to sign in",
+      );
+    }
   };
 
   return (
     <div id="wd-signin-screen" className="flex flex-col gap-2 max-w-xs">
       <h3 className="text-lg font-bold">Sign in</h3>
+      {error && (
+        <p id="wd-signin-error" className="rounded bg-red-100 px-3 py-2 text-sm text-red-800">
+          {error}
+        </p>
+      )}
       <input
         placeholder="username"
         id="wd-username"
