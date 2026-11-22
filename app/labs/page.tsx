@@ -31,7 +31,7 @@ export default function Labs() {
           GitHub Repository
         </a>
       </p>
-      <p>Cait Riley</p>
+      <p>Cait Riley Jackson</p>
     </div>
   );
 }
