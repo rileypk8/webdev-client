@@ -3,10 +3,19 @@
 import { useEffect, useState } from "react";
 import { FaPencilAlt, FaPlusCircle, FaTrash } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
+import axios from "axios";
 import * as client from "./client";
 
 export default function WorkingWithRemoteArraysAsync() {
   const [todos, setTodos] = useState<client.Todo[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const showError = (error: unknown) => {
+    if (axios.isAxiosError(error)) {
+      setErrorMessage(error.response?.data?.message ?? error.message);
+    } else {
+      setErrorMessage("Unexpected error");
+    }
+  };
   const removeTodo = async (todo: client.Todo) => {
     setTodos(await client.removeTodo(todo));
   };
@@ -21,8 +30,13 @@ export default function WorkingWithRemoteArraysAsync() {
     setTodos([...todos, newTodo]);
   };
   const deleteTodo = async (todo: client.Todo) => {
-    await client.deleteTodo(todo);
-    setTodos(todos.filter((t) => t.id !== todo.id));
+    try {
+      await client.deleteTodo(todo);
+      setTodos(todos.filter((t) => t.id !== todo.id));
+      setErrorMessage(null);
+    } catch (error) {
+      showError(error);
+    }
   };
   const editTodo = (todo: client.Todo) => {
     setTodos(
@@ -30,8 +44,13 @@ export default function WorkingWithRemoteArraysAsync() {
     );
   };
   const updateTodo = async (todo: client.Todo) => {
-    await client.updateTodo(todo);
-    setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
+    try {
+      await client.updateTodo(todo);
+      setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
+      setErrorMessage(null);
+    } catch (error) {
+      showError(error);
+    }
   };
   useEffect(() => {
     const fetchTodos = async () => {
@@ -42,6 +61,14 @@ export default function WorkingWithRemoteArraysAsync() {
   return (
     <div id="wd-asynchronous-arrays">
       <h3>Working with Arrays Asynchronously</h3>
+      {errorMessage && (
+        <p
+          id="wd-todo-error-message"
+          className="mb-2 max-w-md rounded bg-red-100 px-3 py-2 text-red-800"
+        >
+          {errorMessage}
+        </p>
+      )}
       <h4>
         Todos
         <FaPlusCircle
