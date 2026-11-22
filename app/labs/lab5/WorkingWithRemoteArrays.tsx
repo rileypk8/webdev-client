@@ -38,6 +38,10 @@ export default function WorkingWithRemoteArrays() {
       <a id="wd-create-todo" className={link} href={`${API}/create`}>
         Create Todo
       </a>
+      <h4>Removing from an Array</h4>
+      <a id="wd-remove-todo" className={link} href={`${API}/${todo.id}/delete`}>
+        Remove Todo with ID = {todo.id}
+      </a>
       <hr />
     </div>
   );
