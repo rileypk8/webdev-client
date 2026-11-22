@@ -3,24 +3,41 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { emptyUser, useAccountContext } from "../AccountContext";
+import axios from "axios";
+import { useAccountContext } from "../AccountContext";
+import * as client from "../client";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
-  const { setCurrentUser, createUser } = useAccountContext();
+  const [error, setError] = useState<string | null>(null);
+  const { setCurrentUser } = useAccountContext();
   const router = useRouter();
 
-  const signup = () => {
+  const signup = async () => {
     if (!username || !password || password !== verifyPassword) return;
-    setCurrentUser(createUser({ ...emptyUser, username, password }));
-    router.push("/account/profile");
+    try {
+      const current = await client.signup({ username, password });
+      setCurrentUser(current);
+      router.push("/account/profile");
+    } catch (e) {
+      setError(
+        axios.isAxiosError(e)
+          ? (e.response?.data?.message ?? e.message)
+          : "Unable to sign up",
+      );
+    }
   };
 
   return (
     <div id="wd-signup-screen" className="flex flex-col gap-2 max-w-xs">
       <h3 className="text-lg font-bold">Sign up</h3>
+      {error && (
+        <p id="wd-signup-error" className="rounded bg-red-100 px-3 py-2 text-sm text-red-800">
+          {error}
+        </p>
+      )}
       <input
         id="wd-username"
         placeholder="username"
