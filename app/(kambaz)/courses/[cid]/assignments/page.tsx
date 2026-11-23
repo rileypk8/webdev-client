@@ -22,15 +22,30 @@ export default function Assignments() {
     (state) => state.deleteAssignment,
   );
   const [toDelete, setToDelete] = useState<Assignment | null>(null);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const load = async () => {
-      setAssignments(await client.findAssignmentsForCourse(courseId));
+      // drop the previous course's assignments before the fetch returns
+      setAssignments([]);
+      try {
+        setAssignments(await client.findAssignmentsForCourse(courseId));
+        setError(null);
+      } catch (e) {
+        console.error("Unable to load assignments", e);
+        setError("Unable to load assignments.");
+      }
     };
-    load().catch((e) => console.error("Unable to load assignments", e));
+    load();
   }, [courseId, setAssignments]);
   const onDeleteAssignment = async (assignmentId: string) => {
-    await client.deleteAssignment(assignmentId);
-    deleteAssignment(assignmentId);
+    try {
+      await client.deleteAssignment(assignmentId);
+      deleteAssignment(assignmentId);
+      setError(null);
+    } catch (e) {
+      console.error("Unable to delete assignment", e);
+      setError("Unable to delete the assignment.");
+    }
   };
 
   return (
@@ -57,6 +72,11 @@ export default function Assignments() {
           </Link>
         )}
       </div>
+      {error && (
+        <p id="wd-assignments-error" className="mb-3 rounded bg-red-100 px-3 py-2 text-sm text-red-800">
+          {error}
+        </p>
+      )}
       <h3
         id="wd-assignments-title"
         className="bg-gray-200 font-bold p-2 flex justify-between items-center"

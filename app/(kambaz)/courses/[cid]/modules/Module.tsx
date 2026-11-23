@@ -5,11 +5,18 @@ import * as client from "../../client";
 
 export default function Module({ module }: { module: CourseModule }) {
   const updateModule = useModulesStore((state) => state.updateModule);
+  const setError = useModulesStore((state) => state.setError);
   // editing is UI state; keep it out of what the server stores
   const onUpdateModule = async ({ editing, ...updates }: CourseModule) => {
     void editing;
-    const saved = await client.updateModule(updates);
-    updateModule({ ...saved, editing: false });
+    try {
+      const saved = await client.updateModule(updates);
+      updateModule({ ...saved, editing: false });
+      setError(null);
+    } catch (e) {
+      console.error("Unable to update module", e);
+      setError("Unable to save the module name.");
+    }
   };
   return (
     <li className="wd-module border rounded mb-3">

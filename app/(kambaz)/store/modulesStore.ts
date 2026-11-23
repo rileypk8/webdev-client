@@ -20,6 +20,8 @@ export type CourseModule = {
 
 type ModulesStore = {
   modules: CourseModule[];
+  error: string | null;
+  setError: (error: string | null) => void;
   setModules: (modules: CourseModule[]) => void;
   addModule: (module: CourseModule) => void;
   deleteModule: (moduleId: string) => void;
@@ -30,6 +32,9 @@ type ModulesStore = {
 export const useModulesStore = create<ModulesStore>((set) => ({
   // a client cache of the current course's modules, filled from the server
   modules: [],
+  // the last failed server call on the Modules screen, shown above the list
+  error: null,
+  setError: (error) => set({ error }),
   setModules: (modules) => set({ modules }),
   // the server assigns the _id; append the module it returned
   addModule: (module) =>

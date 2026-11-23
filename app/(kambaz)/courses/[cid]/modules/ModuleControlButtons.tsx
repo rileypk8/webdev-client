@@ -11,9 +11,16 @@ export default function ModuleControlButtons({
 }) {
   const deleteModule = useModulesStore((state) => state.deleteModule);
   const editModule = useModulesStore((state) => state.editModule);
+  const setError = useModulesStore((state) => state.setError);
   const onRemoveModule = async () => {
-    await client.deleteModule(moduleId);
-    deleteModule(moduleId);
+    try {
+      await client.deleteModule(moduleId);
+      deleteModule(moduleId);
+      setError(null);
+    } catch (e) {
+      console.error("Unable to delete module", e);
+      setError("Unable to delete the module.");
+    }
   };
   return (
     <div className="flex items-center gap-2">

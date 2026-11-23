@@ -37,24 +37,38 @@ export default function AssignmentEditor() {
     };
     load().catch((e) => console.error("Unable to load assignment", e));
   }, [isNew, courseId, assignmentId, router]);
+  const [error, setError] = useState<string | null>(null);
   const backToList = () => router.push(`/courses/${courseId}/assignments`);
   const save = async () => {
     if (!assignment) return;
-    if (isNew) {
-      // the server assigns the _id
-      const { _id, ...draft } = assignment;
-      void _id;
-      addAssignment(await client.createAssignmentForCourse(courseId, draft));
-    } else {
-      updateAssignment(await client.updateAssignment(assignment));
+    try {
+      if (isNew) {
+        // the server assigns the _id
+        const { _id, ...draft } = assignment;
+        void _id;
+        addAssignment(await client.createAssignmentForCourse(courseId, draft));
+      } else {
+        updateAssignment(await client.updateAssignment(assignment));
+      }
+      backToList();
+    } catch (e) {
+      console.error("Unable to save assignment", e);
+      setError("Unable to save the assignment.");
     }
-    backToList();
   };
 
   if (!assignment) return null;
 
   return (
     <div id="wd-assignments-editor" className="flex flex-col gap-4 max-w-2xl">
+      {error && (
+        <p
+          id="wd-assignment-editor-error"
+          className="rounded bg-red-100 px-3 py-2 text-sm text-red-800"
+        >
+          {error}
+        </p>
+      )}
       <div className="flex flex-col gap-1">
         <label htmlFor="wd-name" className="font-semibold text-sm">
           Assignment Name

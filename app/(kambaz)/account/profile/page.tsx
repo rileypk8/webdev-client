@@ -19,22 +19,43 @@ export default function Profile() {
     return () => cancelAnimationFrame(frame);
   }, [currentUser, router]);
 
+  const [error, setError] = useState<string | null>(null);
+
   const updateProfile = async () => {
     if (!profile) return;
-    const user = await client.updateUser(profile);
-    setCurrentUser(user);
+    try {
+      const user = await client.updateUser(profile);
+      setCurrentUser(user);
+      setError(null);
+    } catch (e) {
+      console.error("Unable to update profile", e);
+      setError("Unable to update the profile.");
+    }
   };
 
   const signout = async () => {
-    await client.signout();
-    setCurrentUser(null);
-    router.push("/account/signin");
+    try {
+      await client.signout();
+      setCurrentUser(null);
+      router.push("/account/signin");
+    } catch (e) {
+      console.error("Unable to sign out", e);
+      setError("Unable to sign out.");
+    }
   };
 
   if (!profile) return null;
   return (
     <div id="wd-profile-screen" className="flex flex-col gap-2 max-w-xs">
       <h3 className="text-lg font-bold">Profile</h3>
+      {error && (
+        <p
+          id="wd-profile-error"
+          className="rounded bg-red-100 px-3 py-2 text-sm text-red-800"
+        >
+          {error}
+        </p>
+      )}
       <input
         value={profile.username}
         onChange={(e) => setProfile({ ...profile, username: e.target.value })}

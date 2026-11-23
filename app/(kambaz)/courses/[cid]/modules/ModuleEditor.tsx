@@ -9,6 +9,7 @@ export default function ModuleEditor() {
   const [show, setShow] = useState(false);
   const [moduleName, setModuleName] = useState("");
   const addModule = useModulesStore((state) => state.addModule);
+  const setError = useModulesStore((state) => state.setError);
 
   useEffect(() => {
     if (!show) return;
@@ -50,11 +51,18 @@ export default function ModuleEditor() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 if (!moduleName.trim()) return;
-                const created = await client.createModuleForCourse(String(cid), {
-                  name: moduleName,
-                });
-                addModule(created);
-                setModuleName("");
+                try {
+                  const created = await client.createModuleForCourse(
+                    String(cid),
+                    { name: moduleName },
+                  );
+                  addModule(created);
+                  setModuleName("");
+                  setError(null);
+                } catch (e) {
+                  console.error("Unable to add module", e);
+                  setError("Unable to add the module.");
+                }
                 setShow(false);
               }}
             >

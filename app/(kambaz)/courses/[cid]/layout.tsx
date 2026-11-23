@@ -34,7 +34,11 @@ export default function CoursesLayout({
         setMyCourseIds(mine.map((c) => c._id));
       }
     };
-    load().catch((e) => console.error("Unable to load course", e));
+    load().catch((e) => {
+      console.error("Unable to load course", e);
+      // without my courses the page would wait forever; treat it as none
+      setMyCourseIds((ids) => ids ?? []);
+    });
   }, [courseId, currentUser]);
 
   // signed out: browse freely (like the Dashboard). Signed in: admins can open
