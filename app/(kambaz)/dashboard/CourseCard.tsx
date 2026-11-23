@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Course } from "../store/coursesStore";
 
 // shown when a course has no image or its file is missing
-const fallbackImage = "/images/reactjs.jpg";
+const fallbackImage = "/images/default.jpg";
 
 export default function CourseCard({
   course,

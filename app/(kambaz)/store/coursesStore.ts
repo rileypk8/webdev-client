@@ -14,7 +14,7 @@ const emptyCourse: Course = {
   department: "D123",
   credits: 4,
   description: "New Description",
-  image: "/images/reactjs.jpg",
+  image: "/images/default.jpg",
   term: "Fall 2026",
 };
 
