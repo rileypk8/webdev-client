@@ -7,7 +7,6 @@ import {
   useCoursesStore,
   type Course,
 } from "../store/coursesStore";
-import { useEnrollmentsStore } from "../store/enrollmentsStore";
 import { useAccountContext } from "../account/AccountContext";
 import * as client from "../courses/client";
 
@@ -18,27 +17,22 @@ export default function Dashboard() {
   const updateCourse = useCoursesStore((state) => state.updateCourse);
   const deleteCourse = useCoursesStore((state) => state.deleteCourse);
   const { currentUser } = useAccountContext();
-  const enrollments = useEnrollmentsStore((state) => state.enrollments);
-  const enrollIntoCourse = useEnrollmentsStore(
-    (state) => state.enrollIntoCourse,
-  );
-  const unenrollFromCourse = useEnrollmentsStore(
-    (state) => state.unenrollFromCourse,
-  );
   const [showAllCourses, setShowAllCourses] = useState(false);
-  const isEnrolled = (courseId: string) =>
-    enrollments.some(
-      (enrollment) =>
-        enrollment.user === currentUser?._id && enrollment.course === courseId,
-    );
+  // ids of the courses the server says I'm enrolled in
+  const [myCourseIds, setMyCourseIds] = useState<string[]>([]);
+  const isEnrolled = (courseId: string) => myCourseIds.includes(courseId);
   // the server is the source of truth: my courses when signed in,
   // every course when signed out or when Enrollments shows them all
   useEffect(() => {
     const load = async () => {
       try {
+        const myCourses: Course[] = currentUser
+          ? await client.findMyCourses()
+          : [];
+        setMyCourseIds(myCourses.map((c) => c._id));
         setCourses(
           currentUser && !showAllCourses
-            ? await client.findMyCourses()
+            ? myCourses
             : await client.fetchAllCourses(),
         );
       } catch (e) {
@@ -80,12 +74,31 @@ export default function Dashboard() {
     try {
       const newCourse = await client.createCourse(course);
       addCourse(newCourse);
-      // the server enrolled the creator; mirror that until enrollments move to the server (5.4.8)
-      enrollIntoCourse(currentUser._id, newCourse._id);
+      // the server enrolled the creator
+      setMyCourseIds([...myCourseIds, newCourse._id]);
       setError(null);
     } catch (e) {
       console.error("Unable to add course", e);
       setError("Unable to add the course.");
+    }
+  };
+
+  const onToggleEnrollment = async (courseId: string) => {
+    if (!currentUser) return;
+    try {
+      if (isEnrolled(courseId)) {
+        await client.unenrollFromCourse(currentUser._id, courseId);
+        setMyCourseIds(myCourseIds.filter((id) => id !== courseId));
+        // my-courses view: the course leaves the list
+        if (!showAllCourses) setCourses(courses.filter((c) => c._id !== courseId));
+      } else {
+        await client.enrollIntoCourse(currentUser._id, courseId);
+        setMyCourseIds([...myCourseIds, courseId]);
+      }
+      setError(null);
+    } catch (e) {
+      console.error("Unable to change enrollment", e);
+      setError("Unable to change the enrollment.");
     }
   };
 
@@ -176,12 +189,7 @@ export default function Dashboard() {
             onEdit={() => setCourse(c)}
             onDelete={() => onDeleteCourse(c._id)}
             enrolled={currentUser ? isEnrolled(c._id) : undefined}
-            onToggleEnrollment={() =>
-              currentUser &&
-              (isEnrolled(c._id)
-                ? unenrollFromCourse(currentUser._id, c._id)
-                : enrollIntoCourse(currentUser._id, c._id))
-            }
+            onToggleEnrollment={() => onToggleEnrollment(c._id)}
           />
         ))}
       </div>
