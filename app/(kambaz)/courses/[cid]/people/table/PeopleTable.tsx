@@ -84,7 +84,9 @@ export default function PeopleTable({ cid }: { cid: string }) {
           <button
             id="wd-update-user-click"
             type="button"
-            className="rounded bg-yellow-400 px-3 py-1.5 text-sm font-medium"
+            // nothing to update until Edit fills the form
+            disabled={user._id === emptyUser._id}
+            className="rounded bg-yellow-400 px-3 py-1.5 text-sm font-medium disabled:opacity-50"
             onClick={saveUser}
           >
             Update

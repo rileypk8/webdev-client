@@ -19,7 +19,8 @@ export default function CourseCard({
   enrolled?: boolean;
   onToggleEnrollment?: () => void;
 }) {
-  const [imageFailed, setImageFailed] = useState(false);
+  // the image path that failed to load; new path -> fresh try
+  const [failedImage, setFailedImage] = useState<string | null>(null);
   return (
     <div className="wd-dashboard-course border rounded-lg shadow overflow-hidden bg-white">
       <Link
@@ -27,11 +28,15 @@ export default function CourseCard({
         className="wd-dashboard-course-link block"
       >
         <Image
-          src={imageFailed || !course.image ? fallbackImage : course.image}
+          src={
+            !course.image || course.image === failedImage
+              ? fallbackImage
+              : course.image
+          }
           width={400}
           height={400}
           alt={course.name}
-          onError={() => setImageFailed(true)}
+          onError={() => setFailedImage(course.image)}
           className="w-full aspect-square object-cover"
         />
         <div className="p-3">
