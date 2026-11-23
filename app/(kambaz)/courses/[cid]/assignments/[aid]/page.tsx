@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   emptyAssignment,
@@ -8,6 +8,7 @@ import {
   type Assignment,
 } from "../../../../store/assignmentsStore";
 import { isFaculty, useAccountContext } from "../../../../account/AccountContext";
+import * as client from "../../../client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -19,17 +20,38 @@ export default function AssignmentEditor() {
   const findAssignment = useAssignmentsStore((state) => state.findAssignment);
   const addAssignment = useAssignmentsStore((state) => state.addAssignment);
   const updateAssignment = useAssignmentsStore((state) => state.updateAssignment);
-  const [assignment, setAssignment] = useState<Assignment>(() =>
+  const [assignment, setAssignment] = useState<Assignment | null>(() =>
     isNew
       ? { ...emptyAssignment, course: courseId }
-      : (findAssignment(assignmentId) ?? { ...emptyAssignment, course: courseId }),
+      : (findAssignment(assignmentId) ?? null),
   );
+  // the cache is empty after a reload, so read this assignment from the server
+  useEffect(() => {
+    if (isNew) return;
+    const load = async () => {
+      const assignments: Assignment[] =
+        await client.findAssignmentsForCourse(courseId);
+      const found = assignments.find((a) => a._id === assignmentId);
+      if (found) setAssignment(found);
+      else router.push(`/courses/${courseId}/assignments`);
+    };
+    load().catch((e) => console.error("Unable to load assignment", e));
+  }, [isNew, courseId, assignmentId, router]);
   const backToList = () => router.push(`/courses/${courseId}/assignments`);
-  const save = () => {
-    if (isNew) addAssignment(assignment);
-    else updateAssignment(assignment);
+  const save = async () => {
+    if (!assignment) return;
+    if (isNew) {
+      // the server assigns the _id
+      const { _id, ...draft } = assignment;
+      void _id;
+      addAssignment(await client.createAssignmentForCourse(courseId, draft));
+    } else {
+      updateAssignment(await client.updateAssignment(assignment));
+    }
     backToList();
   };
+
+  if (!assignment) return null;
 
   return (
     <div id="wd-assignments-editor" className="flex flex-col gap-4 max-w-2xl">

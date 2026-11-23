@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import AssignmentItem from "./AssignmentItem";
 import DeleteAssignmentDialog from "./DeleteAssignmentDialog";
@@ -10,19 +10,28 @@ import {
   useAssignmentsStore,
   type Assignment,
 } from "../../../store/assignmentsStore";
+import * as client from "../../client";
 
 export default function Assignments() {
   const { cid } = useParams();
   const courseId = String(cid);
   const { currentUser } = useAccountContext();
-  const allAssignments = useAssignmentsStore((state) => state.assignments);
+  const assignments = useAssignmentsStore((state) => state.assignments);
+  const setAssignments = useAssignmentsStore((state) => state.setAssignments);
   const deleteAssignment = useAssignmentsStore(
     (state) => state.deleteAssignment,
   );
   const [toDelete, setToDelete] = useState<Assignment | null>(null);
-  const assignments = allAssignments.filter(
-    (assignment) => assignment.course === courseId,
-  );
+  useEffect(() => {
+    const load = async () => {
+      setAssignments(await client.findAssignmentsForCourse(courseId));
+    };
+    load().catch((e) => console.error("Unable to load assignments", e));
+  }, [courseId, setAssignments]);
+  const onDeleteAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    deleteAssignment(assignmentId);
+  };
 
   return (
     <div id="wd-assignments">
@@ -74,8 +83,8 @@ export default function Assignments() {
       {toDelete && (
         <DeleteAssignmentDialog
           title={toDelete.title}
-          onYes={() => {
-            deleteAssignment(toDelete._id);
+          onYes={async () => {
+            await onDeleteAssignment(toDelete._id);
             setToDelete(null);
           }}
           onNo={() => setToDelete(null)}
