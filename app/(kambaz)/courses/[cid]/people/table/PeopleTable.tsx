@@ -1,34 +1,60 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useEnrollmentsStore } from "../../../../store/enrollmentsStore";
 import {
   emptyUser,
   isFaculty,
   useAccountContext,
   type User,
 } from "../../../../account/AccountContext";
+import * as accountClient from "../../../../account/client";
+import * as coursesClient from "../../../client";
 
 export default function PeopleTable({ cid }: { cid: string }) {
-  const { currentUser, users, createUser, updateUser, deleteUser } =
-    useAccountContext();
-  const enrollments = useEnrollmentsStore((state) => state.enrollments);
-  const enrollIntoCourse = useEnrollmentsStore(
-    (state) => state.enrollIntoCourse,
-  );
+  const { currentUser, setCurrentUser } = useAccountContext();
+  // the course's enrolled users, read from the server
+  const [enrolled, setEnrolled] = useState<User[]>([]);
   const [user, setUser] = useState<User>(emptyUser);
+  const [error, setError] = useState<string | null>(null);
   const canEdit = isFaculty(currentUser);
-  const enrolled = users.filter((usr) =>
-    enrollments.some(
-      (enrollment) => enrollment.user === usr._id && enrollment.course === cid,
-    ),
-  );
-  const addUser = () => {
-    const newUser = createUser(user);
-    enrollIntoCourse(newUser._id, cid);
-    setUser(emptyUser);
+  useEffect(() => {
+    const load = async () => {
+      setEnrolled(await accountClient.findUsersForCourse(cid));
+    };
+    load().catch((e) => console.error("Unable to load people", e));
+  }, [cid]);
+  const run = async (label: string, action: () => Promise<void>) => {
+    try {
+      await action();
+      setUser(emptyUser);
+      setError(null);
+    } catch (e) {
+      console.error(`Unable to ${label}`, e);
+      setError(`Unable to ${label}.`);
+    }
   };
+  const addUser = () =>
+    run("add the user", async () => {
+      // the server assigns the _id
+      const { _id, ...draft } = user;
+      void _id;
+      const newUser: User = await accountClient.createUser(draft);
+      await coursesClient.enrollIntoCourse(newUser._id, cid);
+      setEnrolled([...enrolled, newUser]);
+    });
+  const saveUser = () =>
+    run("update the user", async () => {
+      const saved: User = await accountClient.updateUser(user);
+      setEnrolled(enrolled.map((u) => (u._id === saved._id ? saved : u)));
+      if (currentUser?._id === saved._id) setCurrentUser(saved);
+    });
+  const removeUser = (userId: string) =>
+    run("delete the user", async () => {
+      await accountClient.deleteUser(userId);
+      setEnrolled(enrolled.filter((u) => u._id !== userId));
+      if (currentUser?._id === userId) setCurrentUser(null);
+    });
   return (
     <div id="wd-people-table" className="overflow-x-auto">
       {canEdit && (
@@ -59,14 +85,19 @@ export default function PeopleTable({ cid }: { cid: string }) {
             id="wd-update-user-click"
             type="button"
             className="rounded bg-yellow-400 px-3 py-1.5 text-sm font-medium"
-            onClick={() => {
-              updateUser(user);
-              setUser(emptyUser);
-            }}
+            onClick={saveUser}
           >
             Update
           </button>
         </div>
+      )}
+      {error && (
+        <p
+          id="wd-people-error"
+          className="mb-3 rounded bg-red-100 px-3 py-2 text-sm text-red-800"
+        >
+          {error}
+        </p>
       )}
       <table className="w-full border-collapse text-left text-sm">
         <thead>
@@ -105,7 +136,7 @@ export default function PeopleTable({ cid }: { cid: string }) {
                   <button
                     type="button"
                     className="wd-delete-user ms-2 rounded bg-red-600 px-2 py-1 text-xs font-medium text-white"
-                    onClick={() => deleteUser(usr._id)}
+                    onClick={() => removeUser(usr._id)}
                   >
                     Delete
                   </button>
