@@ -31,6 +31,26 @@ export default function Labs() {
           GitHub Repository
         </a>
       </p>
+      <p>
+        <a
+          id="wd-github-server"
+          href="https://github.com/rileypk8/webdev-server"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Node Server GitHub Repository
+        </a>
+      </p>
+      <p>
+        <a
+          id="wd-server-url"
+          href="https://webdev-server-3lvs.onrender.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Node Server on Render
+        </a>
+      </p>
       <p>Cait Riley Jackson</p>
     </div>
   );
