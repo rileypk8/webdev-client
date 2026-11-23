@@ -1,6 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import type { Course } from "../store/coursesStore";
+
+// shown when a course has no image or its file is missing
+const fallbackImage = "/images/reactjs.jpg";
 
 export default function CourseCard({
   course,
@@ -15,6 +19,7 @@ export default function CourseCard({
   enrolled?: boolean;
   onToggleEnrollment?: () => void;
 }) {
+  const [imageFailed, setImageFailed] = useState(false);
   return (
     <div className="wd-dashboard-course border rounded-lg shadow overflow-hidden bg-white">
       <Link
@@ -22,22 +27,23 @@ export default function CourseCard({
         className="wd-dashboard-course-link block"
       >
         <Image
-          src={course.image}
-          width={200}
-          height={150}
+          src={imageFailed || !course.image ? fallbackImage : course.image}
+          width={400}
+          height={400}
           alt={course.name}
-          className="w-full h-36 object-cover"
+          onError={() => setImageFailed(true)}
+          className="w-full aspect-square object-cover"
         />
         <div className="p-3">
-          <h5 className="wd-dashboard-course-title font-bold truncate">
+          <h5 className="wd-dashboard-course-title font-bold text-gray-900 truncate">
             {course.name}
           </h5>
-          <p className="wd-dashboard-course-description text-sm text-gray-500 truncate">
+          <p className="wd-dashboard-course-description text-sm text-gray-500 line-clamp-3 h-15">
             {course.description}
           </p>
           <button
             type="button"
-            className="mt-2 bg-red-700 text-white text-sm px-3 py-1 rounded"
+            className="mt-2 bg-green-700 text-white text-sm px-3 py-1 rounded"
           >
             Go
           </button>
@@ -45,8 +51,10 @@ export default function CourseCard({
             <button
               type="button"
               id={enrolled ? "wd-unenroll-course-click" : "wd-enroll-course-click"}
-              className={`mt-2 ms-2 text-white text-sm px-3 py-1 rounded ${
-                enrolled ? "bg-red-600" : "bg-green-600"
+              className={`mt-2 ms-2 text-sm px-3 py-1 rounded border ${
+                enrolled
+                  ? "border-red-600 bg-red-600 text-white"
+                  : "border-green-700 bg-white text-green-700"
               }`}
               onClick={(event) => {
                 event.preventDefault();
@@ -59,7 +67,7 @@ export default function CourseCard({
           <button
             type="button"
             id="wd-edit-course-click"
-            className="mt-2 ms-2 bg-yellow-400 text-sm px-3 py-1 rounded"
+            className="mt-2 ms-2 bg-blue-600 text-white text-sm px-3 py-1 rounded"
             onClick={(event) => {
               event.preventDefault();
               onEdit();
