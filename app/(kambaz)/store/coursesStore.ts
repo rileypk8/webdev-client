@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import coursesJson from "../database/courses.json";
+import type coursesJson from "../database/courses.json";
 
 export type Course = (typeof coursesJson)[number];
 
@@ -27,7 +27,8 @@ type CoursesStore = {
 };
 
 export const useCoursesStore = create<CoursesStore>((set) => ({
-  courses: coursesJson,
+  // a client cache of courses, filled from the server
+  courses: [],
   setCourses: (courses) => set({ courses }),
   // the server assigns the _id; append the course it returned
   addCourse: (course) =>

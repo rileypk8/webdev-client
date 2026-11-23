@@ -21,6 +21,9 @@ export default function Dashboard() {
   // ids of the courses the server says I'm enrolled in
   const [myCourseIds, setMyCourseIds] = useState<string[]>([]);
   const isEnrolled = (courseId: string) => myCourseIds.includes(courseId);
+  // false until the first fetch from the server settles
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   // the server is the source of truth: my courses when signed in,
   // every course when signed out or when Enrollments shows them all
   useEffect(() => {
@@ -37,12 +40,14 @@ export default function Dashboard() {
         );
       } catch (e) {
         console.error("Unable to load courses", e);
+        setError("Unable to load courses.");
+      } finally {
+        setLoaded(true);
       }
     };
     load();
   }, [currentUser, showAllCourses, setCourses]);
   const [course, setCourse] = useState<Course>(emptyCourse);
-  const [error, setError] = useState<string | null>(null);
 
   const onUpdateCourse = async () => {
     try {
@@ -182,6 +187,15 @@ export default function Dashboard() {
         id="wd-dashboard-courses"
         className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
       >
+        {!loaded && (
+          <div
+            id="wd-dashboard-loading"
+            className="border rounded-lg shadow overflow-hidden bg-white"
+          >
+            <div className="aspect-square w-full animate-pulse bg-neutral-200" />
+            <p className="p-3 font-bold text-neutral-500">Loading...</p>
+          </div>
+        )}
         {courses.map((c) => (
           <CourseCard
             key={c._id}
